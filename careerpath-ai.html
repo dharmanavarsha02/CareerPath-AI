@@ -1,0 +1,2479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CareerPath AI — Readiness & Roadmap Generator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fraunces:ital,wght@0,300;0,600;0,800;1,300;1,500&display=swap" rel="stylesheet"/>
+
+<style>
+/* ================================================================
+   DESIGN SYSTEM
+   Theme: Deep navy + electric teal
+   Aesthetic: Premium EdTech dashboard
+   ================================================================ */
+:root {
+  --navy:        #0f1629;
+  --navy2:       #161e35;
+  --navy3:       #1e2845;
+  --navy4:       #273258;
+  --teal:        #00c896;
+  --teal2:       #00a97c;
+  --teal3:       #00f5b8;
+  --teal-glow:   rgba(0,200,150,0.15);
+  --amber:       #f59e0b;
+  --red:         #ef4444;
+  --blue:        #3b82f6;
+  --purple:      #8b5cf6;
+  --text:        #e8edf8;
+  --text2:       #9faec8;
+  --text3:       #5a6a8a;
+  --border:      rgba(255,255,255,0.07);
+  --border2:     rgba(255,255,255,0.12);
+  --r-sm:  8px;
+  --r:     14px;
+  --r-lg:  20px;
+  --r-xl:  28px;
+  --s-xs:  0 1px 3px rgba(0,0,0,0.3);
+  --s-sm:  0 2px 10px rgba(0,0,0,0.35);
+  --s:     0 4px 20px rgba(0,0,0,0.4);
+  --s-md:  0 8px 32px rgba(0,0,0,0.45);
+  --s-lg:  0 20px 60px rgba(0,0,0,0.5);
+  --s-teal:0 0 30px rgba(0,200,150,0.25);
+  --sidebar-w: 240px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: var(--navy);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 10%, rgba(0,200,150,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(59,130,246,0.05) 0%, transparent 60%);
+  pointer-events: none; z-index: 0;
+}
+
+/* ================================================================
+   PAGE SYSTEM
+   Two top-level pages: #page-entry and #page-dashboard
+   ================================================================ */
+.page { display: none; min-height: 100vh; position: relative; z-index: 1; }
+.page.active { display: flex; flex-direction: column; animation: fadeUp 0.4s cubic-bezier(0.16,1,0.3,1) both; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Dashboard uses flex-row layout */
+.dash-page { flex-direction: row !important; min-height: 100vh; }
+
+/* ================================================================
+   ENTRY PAGE  — Assessment / Welcome
+   ================================================================ */
+#page-entry {
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0;
+  background: var(--navy);
+}
+
+.entry-layout {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* Left panel — branding + info */
+.entry-panel {
+  background: linear-gradient(165deg, var(--navy3) 0%, var(--navy4) 100%);
+  border-right: 1px solid var(--border2);
+  padding: 3rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: sticky; top: 0; height: 100vh;
+  overflow: hidden;
+}
+.entry-panel::before {
+  content: '';
+  position: absolute; top: -60px; right: -60px;
+  width: 240px; height: 240px;
+  background: radial-gradient(circle, rgba(0,200,150,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+.entry-panel::after {
+  content: '';
+  position: absolute; bottom: -80px; left: -40px;
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, rgba(59,130,246,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.ep-brand {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 3rem; position: relative; z-index: 1;
+}
+.ep-logo {
+  width: 44px; height: 44px;
+  background: linear-gradient(135deg, var(--teal), var(--teal2));
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem;
+  box-shadow: 0 4px 18px rgba(0,200,150,0.4);
+}
+.ep-name {
+  font-family: 'Fraunces', serif;
+  font-size: 1.3rem; font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.ep-name span { color: var(--teal); }
+
+.ep-hero { position: relative; z-index: 1; flex: 1; }
+.ep-eyebrow {
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--teal);
+  margin-bottom: 1rem;
+  display: flex; align-items: center; gap: 8px;
+}
+.ep-eyebrow::before { content: ''; width: 20px; height: 2px; background: var(--teal); border-radius: 1px; }
+.ep-title {
+  font-family: 'Fraunces', serif;
+  font-size: 2.1rem; font-weight: 800;
+  line-height: 1.15; letter-spacing: -0.03em;
+  color: var(--text); margin-bottom: 1.25rem;
+}
+.ep-title em { font-style: normal; color: var(--teal); }
+.ep-desc {
+  font-size: 0.85rem; color: var(--text2); line-height: 1.75;
+  margin-bottom: 2.5rem;
+}
+
+.ep-features { display: flex; flex-direction: column; gap: 14px; }
+.ep-feat {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 14px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+}
+.ep-feat-icon {
+  width: 32px; height: 32px; border-radius: 8px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.95rem;
+}
+.ep-feat-text strong { display: block; font-size: 0.82rem; font-weight: 600; color: var(--text); margin-bottom: 1px; }
+.ep-feat-text span   { font-size: 0.73rem; color: var(--text3); }
+
+.ep-footer {
+  font-size: 0.72rem; color: var(--text3); position: relative; z-index: 1;
+  margin-top: 2rem;
+}
+
+/* Right panel — the form */
+.entry-form-panel {
+  padding: 3rem 3.5rem;
+  overflow-y: auto;
+  display: flex; flex-direction: column; justify-content: center;
+}
+
+.ef-header { margin-bottom: 2.5rem; }
+.ef-header h2 {
+  font-family: 'Fraunces', serif;
+  font-size: 1.7rem; font-weight: 800;
+  letter-spacing: -0.03em; margin-bottom: 0.35rem;
+}
+.ef-header p { font-size: 0.84rem; color: var(--text2); }
+
+/* Form section cards */
+.ef-section {
+  background: var(--navy2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  margin-bottom: 1.25rem;
+  overflow: hidden;
+  box-shadow: var(--s-sm);
+}
+.ef-section-head {
+  background: var(--navy3);
+  padding: 0.85rem 1.4rem;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 10px;
+}
+.ef-section-icon {
+  width: 28px; height: 28px; border-radius: var(--r-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.85rem; flex-shrink: 0;
+}
+.ef-section-head h4 {
+  font-size: 0.78rem; font-weight: 700;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  color: var(--text2);
+}
+.ef-section-body { padding: 1.4rem; }
+
+/* Name highlight band */
+.name-band {
+  background: linear-gradient(135deg, rgba(0,200,150,0.06), rgba(59,130,246,0.04));
+  border: 1px solid rgba(0,200,150,0.18);
+  border-radius: var(--r-lg);
+  padding: 1.25rem 1.4rem;
+  margin-bottom: 1.25rem;
+  display: flex; align-items: center; gap: 14px;
+}
+.name-band-icon {
+  font-size: 1.6rem; flex-shrink: 0;
+}
+.name-band-field { flex: 1; }
+.name-band-field label {
+  display: block;
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--teal);
+  margin-bottom: 5px;
+}
+.name-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid rgba(0,200,150,0.3);
+  color: var(--text);
+  padding: 6px 0;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.05rem; font-weight: 600;
+  transition: border-color 0.2s;
+}
+.name-input:focus { outline: none; border-bottom-color: var(--teal); }
+.name-input::placeholder { color: var(--text3); font-weight: 400; font-size: 0.9rem; }
+
+/* Grid layout for form */
+.ef-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; }
+
+/* Form fields */
+.form-group { margin-bottom: 1rem; }
+.form-group:last-child { margin-bottom: 0; }
+.field-label {
+  display: block;
+  font-size: 0.74rem; font-weight: 600; letter-spacing: 0.05em;
+  text-transform: uppercase; color: var(--text2);
+  margin-bottom: 6px;
+}
+.field-input {
+  width: 100%;
+  background: var(--navy3);
+  border: 1.5px solid var(--border2);
+  color: var(--text);
+  padding: 10px 13px;
+  border-radius: var(--r-sm);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.87rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.field-input:focus { outline: none; border-color: var(--teal); box-shadow: 0 0 0 3px rgba(0,200,150,0.1); }
+.field-input::placeholder { color: var(--text3); }
+select.field-input {
+  appearance: none; cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7'%3E%3Cpath d='M1 1l4.5 4.5L10 1' stroke='%235a6a8a' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 13px center; padding-right: 34px;
+}
+select.field-input option { background: var(--navy3); }
+
+/* Pill toggles (radio/checkbox) */
+.pill-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.pill-check { display: none; }
+.pill-check + label {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 14px;
+  background: var(--navy3); border: 1.5px solid var(--border2);
+  border-radius: 999px; font-size: 0.81rem; font-weight: 500;
+  color: var(--text2); cursor: pointer; user-select: none;
+  transition: all 0.18s;
+}
+.pill-check:checked + label {
+  background: var(--teal-glow); border-color: var(--teal);
+  color: var(--teal); font-weight: 600;
+}
+.pill-icon { font-size: 0.9rem; }
+
+/* Entry submit button */
+.ef-submit-row {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: 1.75rem; flex-wrap: wrap; gap: 1rem;
+}
+.ef-submit-note { font-size: 0.75rem; color: var(--text3); }
+.ef-submit-note strong { color: var(--text2); }
+
+/* ================================================================
+   BUTTONS
+   ================================================================ */
+.btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 11px 22px;
+  border-radius: var(--r-sm);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.86rem; font-weight: 600;
+  cursor: pointer; border: none;
+  transition: all 0.18s ease;
+  white-space: nowrap;
+}
+.btn-teal { background: var(--teal); color: var(--navy); box-shadow: 0 4px 14px rgba(0,200,150,0.35); }
+.btn-teal:hover { background: var(--teal3); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,200,150,0.45); }
+.btn-outline { background: transparent; color: var(--text2); border: 1.5px solid var(--border2); }
+.btn-outline:hover { color: var(--text); border-color: var(--teal); }
+.btn-ghost { background: transparent; color: var(--text2); }
+.btn-ghost:hover { color: var(--text); background: var(--navy3); border-radius: var(--r-sm); }
+.btn-amber { background: var(--amber); color: var(--navy); box-shadow: 0 4px 14px rgba(245,158,11,0.3); }
+.btn-amber:hover { filter: brightness(1.1); transform: translateY(-1px); }
+.btn-danger { background: var(--red); color: white; }
+.btn-full { width: 100%; justify-content: center; padding: 13px; font-size: 0.9rem; }
+.btn-sm { padding: 7px 14px; font-size: 0.78rem; }
+.btn-lg { padding: 14px 32px; font-size: 0.96rem; }
+
+/* ================================================================
+   SIDEBAR NAVIGATION
+   ================================================================ */
+.sidebar {
+  width: var(--sidebar-w);
+  min-height: 100vh; height: 100vh;
+  background: var(--navy2);
+  border-right: 1px solid var(--border);
+  display: flex; flex-direction: column;
+  position: sticky; top: 0; overflow-y: auto; flex-shrink: 0;
+}
+.sidebar-brand {
+  padding: 1.4rem 1.25rem 1.15rem;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 10px;
+}
+.logo-mark {
+  width: 34px; height: 34px;
+  background: linear-gradient(135deg, var(--teal), var(--teal2));
+  border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; flex-shrink: 0;
+  box-shadow: 0 3px 12px rgba(0,200,150,0.35);
+}
+.logo-text {
+  font-family: 'Fraunces', serif;
+  font-size: 1rem; font-weight: 800;
+  letter-spacing: -0.02em; color: var(--text);
+}
+.logo-text span { color: var(--teal); }
+
+/* User info strip */
+.sidebar-user {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 10px;
+}
+.user-avatar {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: linear-gradient(135deg, var(--teal), var(--blue));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.88rem; font-weight: 800; color: white; flex-shrink: 0;
+}
+.user-info { min-width: 0; }
+.user-name { font-size: 0.82rem; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.user-track { font-size: 0.7rem; color: var(--text3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.sidebar-nav { padding: 1rem 0.75rem; flex: 1; }
+.nav-section-label {
+  font-size: 0.61rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--text3); padding: 0 0.5rem; margin: 1rem 0 0.35rem;
+}
+.nav-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 12px; border-radius: var(--r-sm);
+  font-size: 0.83rem; font-weight: 500; color: var(--text2);
+  cursor: pointer; transition: all 0.18s;
+  margin-bottom: 2px; border: none; background: transparent;
+  width: 100%; text-align: left;
+}
+.nav-item:hover { background: var(--navy3); color: var(--text); }
+.nav-item.active { background: var(--teal-glow); color: var(--teal); font-weight: 600; border: 1px solid rgba(0,200,150,0.15); }
+.nav-icon { font-size: 1rem; width: 20px; text-align: center; flex-shrink: 0; }
+.nav-badge {
+  margin-left: auto; background: var(--teal); color: var(--navy);
+  font-size: 0.6rem; font-weight: 700; padding: 1px 6px; border-radius: 999px;
+}
+
+.sidebar-footer {
+  padding: 1rem 1.25rem;
+  border-top: 1px solid var(--border);
+  display: flex; flex-direction: column; gap: 6px;
+}
+
+/* ================================================================
+   MAIN CONTENT AREA
+   ================================================================ */
+.main-content { flex: 1; overflow-y: auto; max-height: 100vh; }
+.page-content { padding: 2rem 2rem 3rem; max-width: 1100px; }
+
+.page-top {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;
+}
+.page-title-area h1 {
+  font-family: 'Fraunces', serif;
+  font-size: 1.65rem; font-weight: 800;
+  letter-spacing: -0.03em; color: var(--text); margin-bottom: 3px;
+}
+.page-title-area p { font-size: 0.82rem; color: var(--text2); }
+
+/* Views — shown/hidden inside dashboard */
+.view { display: none; }
+.view.active { display: block; animation: fadeUp 0.35s cubic-bezier(0.16,1,0.3,1) both; }
+
+/* ================================================================
+   CARDS
+   ================================================================ */
+.card { background: var(--navy2); border: 1px solid var(--border); border-radius: var(--r-lg); box-shadow: var(--s-sm); overflow: hidden; }
+.card-body { padding: 1.5rem; }
+.card-header { padding: 1.05rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
+.card-header h3 { font-size: 0.9rem; font-weight: 700; color: var(--text); }
+.header-icon { width: 30px; height: 30px; border-radius: var(--r-sm); display: flex; align-items: center; justify-content: center; font-size: 0.9rem; flex-shrink: 0; }
+.badge-sm { margin-left: auto; font-size: 0.68rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; }
+
+/* Stat cards */
+.stat-card {
+  background: var(--navy2); border: 1px solid var(--border); border-radius: var(--r-lg);
+  padding: 1.25rem; box-shadow: var(--s-sm);
+  display: flex; flex-direction: column; gap: 8px;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.stat-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+.stat-top { display: flex; align-items: center; justify-content: space-between; }
+.stat-icon { width: 36px; height: 36px; border-radius: var(--r-sm); display: flex; align-items: center; justify-content: center; font-size: 1rem; }
+.stat-delta { font-size: 0.7rem; font-weight: 600; }
+.stat-value { font-family: 'Fraunces', serif; font-size: 2rem; font-weight: 800; color: var(--text); letter-spacing: -0.04em; line-height: 1; }
+.stat-label { font-size: 0.75rem; color: var(--text2); }
+
+/* Grid layouts */
+.grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 1rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+
+/* ================================================================
+   SCORE RING ELEMENTS
+   ================================================================ */
+.score-ring-container { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.score-ring { position: relative; width: 160px; height: 160px; }
+.score-ring svg { transform: rotate(-90deg); }
+.ring-track { fill: none; stroke: var(--navy3); stroke-width: 12; }
+.ring-fill { fill: none; stroke: var(--teal); stroke-width: 12; stroke-linecap: round; stroke-dasharray: 408; stroke-dashoffset: 408; transition: stroke-dashoffset 1.5s cubic-bezier(0.2,0.8,0.2,1); filter: drop-shadow(0 0 8px rgba(0,200,150,0.5)); }
+.ring-center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.ring-pct { font-family: 'Fraunces', serif; font-size: 2.4rem; font-weight: 800; color: var(--text); letter-spacing: -0.05em; line-height: 1; }
+.ring-sub { font-size: 0.65rem; color: var(--text2); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; }
+
+/* Horizontal progress */
+.h-progress-track { height: 8px; background: var(--navy3); border-radius: 999px; overflow: hidden; }
+.h-progress-fill { height: 100%; border-radius: 999px; width: 0%; transition: width 1.2s cubic-bezier(0.2,0.8,0.2,1); }
+
+/* ================================================================
+   TIMELINE / ROADMAP
+   ================================================================ */
+.timeline { display: flex; flex-direction: column; }
+.tl-item { display: grid; grid-template-columns: 80px 28px 1fr; gap: 0 1rem; }
+.tl-item:not(:last-child) .tl-line::after { content: ''; position: absolute; top: 28px; left: 50%; transform: translateX(-50%); width: 2px; bottom: 0; background: linear-gradient(to bottom, var(--teal), var(--border)); }
+.tl-week { text-align: right; padding-top: 3px; }
+.tl-week-label { display: inline-flex; align-items: center; font-size: 0.67rem; font-weight: 700; letter-spacing: 0.05em; padding: 4px 9px; border-radius: 999px; background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.25); color: var(--amber); white-space: nowrap; }
+.tl-line { position: relative; display: flex; flex-direction: column; align-items: center; }
+.tl-dot { width: 28px; height: 28px; border-radius: 50%; background: var(--teal); color: var(--navy); display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 800; flex-shrink: 0; z-index: 1; box-shadow: 0 0 0 4px var(--navy2), 0 0 0 5px var(--teal); }
+.tl-content { padding: 0 0 2rem; }
+.tl-title { font-size: 0.9rem; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+.tl-tasks { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+.tl-task { font-size: 0.8rem; color: var(--text2); display: flex; align-items: flex-start; gap: 7px; line-height: 1.5; }
+.tl-task-bullet { width: 16px; height: 16px; flex-shrink: 0; background: var(--teal-glow); border: 1px solid rgba(0,200,150,0.25); border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 0.55rem; color: var(--teal); margin-top: 1px; }
+
+/* ================================================================
+   SKILL TAGS
+   ================================================================ */
+.skill-tag { display: inline-flex; align-items: center; gap: 5px; padding: 6px 12px; border-radius: 999px; font-size: 0.78rem; font-weight: 600; }
+.tag-green  { background: rgba(0,200,150,0.1); border: 1px solid rgba(0,200,150,0.25); color: var(--teal); }
+.tag-red    { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.25); color: #f87171; }
+.tag-amber  { background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.25); color: var(--amber); }
+.tag-blue   { background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.25); color: #60a5fa; }
+.tag-purple { background: rgba(139,92,246,0.1); border: 1px solid rgba(139,92,246,0.25); color: #a78bfa; }
+.tag-gray   { background: rgba(255,255,255,0.04); border: 1px solid var(--border2); color: var(--text2); }
+
+/* ================================================================
+   MCQ TEST
+   ================================================================ */
+.question-card { background: var(--navy2); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 1.75rem; margin-bottom: 1.25rem; box-shadow: var(--s-sm); }
+.q-num { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--teal); margin-bottom: 0.6rem; }
+.q-text { font-size: 0.95rem; font-weight: 600; color: var(--text); margin-bottom: 1rem; line-height: 1.55; }
+.q-options { display: flex; flex-direction: column; gap: 8px; }
+.q-option { display: none; }
+.q-option + label { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: var(--navy3); border: 1.5px solid var(--border2); border-radius: var(--r-sm); font-size: 0.84rem; color: var(--text2); cursor: pointer; transition: all 0.18s; }
+.q-option + label::before { content: ''; width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--border2); flex-shrink: 0; transition: all 0.18s; }
+.q-option:checked + label { background: var(--teal-glow); border-color: var(--teal); color: var(--teal); font-weight: 600; }
+.q-option:checked + label::before { background: var(--teal); border-color: var(--teal); }
+.q-option.correct + label { background: rgba(0,200,150,0.08); border-color: var(--teal); color: var(--teal); }
+.q-option.wrong   + label { background: rgba(239,68,68,0.08); border-color: var(--red); color: #f87171; }
+
+/* ================================================================
+   PROGRESS TRACKER
+   ================================================================ */
+.checklist-item { display: flex; align-items: center; gap: 12px; padding: 11px 14px; background: var(--navy3); border: 1px solid var(--border); border-radius: var(--r-sm); margin-bottom: 7px; transition: all 0.2s; cursor: pointer; }
+.checklist-item:hover { border-color: var(--border2); }
+.checklist-item.checked { opacity: 0.6; }
+.checklist-item.checked .ci-label { text-decoration: line-through; color: var(--text3); }
+.ci-box { width: 20px; height: 20px; border-radius: 5px; flex-shrink: 0; border: 2px solid var(--border2); display: flex; align-items: center; justify-content: center; font-size: 0.7rem; color: transparent; transition: all 0.2s; }
+.checklist-item.checked .ci-box { background: var(--teal); border-color: var(--teal); color: var(--navy); }
+.ci-label { font-size: 0.84rem; font-weight: 500; color: var(--text2); flex: 1; }
+
+/* Streak */
+.streak-bar { display: flex; gap: 4px; flex-wrap: wrap; }
+.streak-day { width: 24px; height: 24px; border-radius: 5px; background: var(--navy3); border: 1px solid var(--border); transition: all 0.2s; }
+.streak-day.active  { background: var(--teal); border-color: var(--teal); box-shadow: 0 0 6px rgba(0,200,150,0.4); }
+.streak-day.partial { background: rgba(0,200,150,0.25); border-color: rgba(0,200,150,0.4); }
+
+/* ================================================================
+   SMART SUGGESTIONS
+   ================================================================ */
+.suggestion-card { background: var(--navy2); border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--s-sm); transition: transform 0.2s, border-color 0.2s; }
+.suggestion-card:hover { transform: translateY(-3px); border-color: var(--border2); }
+.sc-banner { height: 5px; background: linear-gradient(90deg, var(--teal), var(--blue)); }
+.sc-body { padding: 1.25rem; }
+.sc-icon-row { display: flex; align-items: center; gap: 10px; margin-bottom: 0.75rem; }
+.sc-icon { width: 40px; height: 40px; border-radius: var(--r-sm); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+.sc-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text3); }
+.sc-title { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.sc-desc { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.sc-action { margin-top: 1rem; }
+
+/* Quote card */
+.quote-card { background: linear-gradient(135deg, var(--navy3), var(--navy4)); border: 1px solid rgba(0,200,150,0.2); border-radius: var(--r-lg); padding: 1.75rem; box-shadow: var(--s-sm), var(--s-teal); position: relative; overflow: hidden; }
+.quote-card::before { content: '"'; position: absolute; top: -10px; left: 16px; font-family: 'Fraunces', serif; font-size: 8rem; font-weight: 800; color: rgba(0,200,150,0.06); line-height: 1; pointer-events: none; }
+.quote-text { font-family: 'Fraunces', serif; font-size: 1.15rem; font-style: italic; color: var(--text); line-height: 1.65; position: relative; margin-bottom: 1rem; }
+.quote-author { font-size: 0.78rem; font-weight: 600; color: var(--teal); }
+
+/* ================================================================
+   RESOURCE ITEMS
+   ================================================================ */
+.resource-item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 14px; background: var(--navy3); border: 1px solid var(--border); border-radius: var(--r-sm); margin-bottom: 8px; transition: all 0.2s; }
+.resource-item:hover { border-color: var(--border2); background: var(--navy4); }
+.res-platform { width: 32px; height: 32px; border-radius: 8px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; }
+.res-info { flex: 1; }
+.res-title { font-size: 0.84rem; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+.res-desc  { font-size: 0.75rem; color: var(--text2); }
+.res-tag   { font-size: 0.65rem; }
+
+/* ================================================================
+   TODAY'S TASK / FOCUS CARD
+   ================================================================ */
+.today-task { background: linear-gradient(135deg, rgba(0,200,150,0.08), rgba(59,130,246,0.05)); border: 1px solid rgba(0,200,150,0.2); border-radius: var(--r-lg); padding: 1.5rem; }
+.today-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal); margin-bottom: 0.4rem; display: flex; align-items: center; gap: 6px; }
+.today-label::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--teal); animation: blink 2s infinite; }
+@keyframes blink { 0%,100% { opacity:1; } 50% { opacity:0.3; } }
+.today-title { font-family: 'Fraunces', serif; font-size: 1.25rem; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+.today-desc  { font-size: 0.82rem; color: var(--text2); line-height: 1.6; }
+
+/* ================================================================
+   TEST RESULT
+   ================================================================ */
+.test-result-card { text-align: center; background: linear-gradient(135deg, var(--navy3), var(--navy4)); border: 1px solid var(--border2); border-radius: var(--r-xl); padding: 2.5rem; box-shadow: var(--s-md); }
+.tr-score    { font-family: 'Fraunces', serif; font-size: 4rem; font-weight: 800; letter-spacing: -0.05em; line-height: 1; margin-bottom: 4px; }
+.tr-label    { font-size: 0.82rem; color: var(--text2); margin-bottom: 1.25rem; }
+.tr-feedback { font-size: 1rem; font-weight: 600; color: var(--text); margin-bottom: 0.5rem; }
+.tr-desc     { font-size: 0.82rem; color: var(--text2); }
+
+/* ================================================================
+   MOBILE HEADER + SIDEBAR TOGGLE
+   ================================================================ */
+.mobile-header { display: none; position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--navy2); border-bottom: 1px solid var(--border); padding: 12px 1.25rem; align-items: center; justify-content: space-between; height: 56px; }
+.hamburger { background: none; border: none; color: var(--text); cursor: pointer; font-size: 1.3rem; }
+.sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 98; }
+
+/* ================================================================
+   MISC UTILITIES
+   ================================================================ */
+.flex-between { display: flex; align-items: center; justify-content: space-between; }
+.flex-center  { display: flex; align-items: center; justify-content: center; }
+.flex-gap-1   { display: flex; align-items: center; gap: 8px; }
+.flex-wrap    { display: flex; flex-wrap: wrap; gap: 8px; }
+.mt-1 { margin-top: 0.5rem; }  .mt-2 { margin-top: 1rem; }  .mt-3 { margin-top: 1.5rem; }
+.mb-1 { margin-bottom: 0.5rem; } .mb-2 { margin-bottom: 1rem; }
+.divider { height: 1px; background: var(--border); margin: 1.25rem 0; }
+.text-teal  { color: var(--teal); }   .text-amber { color: var(--amber); }
+.text-red   { color: #f87171; }       .text-muted { color: var(--text2); }
+.text-sm    { font-size: 0.8rem; }    .font-bold  { font-weight: 700; }
+.section-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text3); margin-bottom: 0.75rem; display: block; }
+.empty-state { text-align: center; padding: 2.5rem 1rem; color: var(--text3); font-size: 0.85rem; }
+.empty-state .es-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+
+/* ================================================================
+   RESPONSIVE
+   ================================================================ */
+@media (max-width: 960px) {
+  .entry-layout { grid-template-columns: 1fr; }
+  .entry-panel { display: none; }
+  .entry-form-panel { padding: 2rem 1.5rem; justify-content: flex-start; padding-top: 3rem; }
+}
+@media (max-width: 900px) {
+  :root { --sidebar-w: 220px; }
+  .grid-4 { grid-template-columns: repeat(2,1fr); }
+}
+@media (max-width: 700px) {
+  .mobile-header { display: flex; }
+  .sidebar { position: fixed; left: -260px; top: 0; z-index: 99; transition: left 0.3s ease; width: 240px; }
+  .sidebar.open { left: 0; }
+  .sidebar-overlay.show { display: block; }
+  .main-content { padding-top: 56px; }
+  .page-content { padding: 1.25rem 1rem 2.5rem; }
+  .grid-4, .grid-3, .grid-2 { grid-template-columns: 1fr; }
+  .ef-grid-2 { grid-template-columns: 1fr; }
+  .tl-item { grid-template-columns: 65px 28px 1fr; }
+  .score-ring { width: 130px; height: 130px; }
+  .ring-pct { font-size: 2rem; }
+}
+@media (max-width: 420px) {
+  .grid-4 { grid-template-columns: 1fr; }
+  .page-top { flex-direction: column; }
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--navy4); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text3); }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     MOBILE HEADER (shown on small screens inside dashboard)
+============================================================ -->
+<div class="mobile-header" id="mobile-header" style="display:none">
+  <button class="hamburger" onclick="toggleSidebar()">☰</button>
+  <div class="flex-gap-1">
+    <div class="logo-mark" style="width:28px;height:28px;font-size:0.85rem;">🎯</div>
+    <span style="font-family:'Fraunces',serif;font-weight:800;font-size:0.95rem;">CareerPath <span style="color:var(--teal)">AI</span></span>
+  </div>
+  <div style="width:32px;"></div>
+</div>
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+<!-- ============================================================
+     PAGE 1: ENTRY — Skill Assessment Form
+     This is the FIRST page. No login required.
+     On submit → save to localStorage → go to dashboard.
+============================================================ -->
+<div class="page active" id="page-entry">
+  <div class="entry-layout">
+
+    <!-- LEFT: Branding Panel -->
+    <div class="entry-panel">
+      <div>
+        <div class="ep-brand">
+          <div class="ep-logo">🎯</div>
+          <div class="ep-name">CareerPath <span>AI</span></div>
+        </div>
+        <div class="ep-hero">
+          <div class="ep-eyebrow">Your Career Launchpad</div>
+          <h1 class="ep-title">Know your gaps.<br><em>Build your roadmap.</em><br>Land the role.</h1>
+          <p class="ep-desc">Fill out a quick skill assessment and instantly get a personalized readiness score, week-by-week learning roadmap, and curated resources — all free, no login needed.</p>
+          <div class="ep-features">
+            <div class="ep-feat">
+              <div class="ep-feat-icon" style="background:rgba(0,200,150,0.1);">📊</div>
+              <div class="ep-feat-text">
+                <strong>Readiness Score</strong>
+                <span>Calculated from your skill overlap with role requirements</span>
+              </div>
+            </div>
+            <div class="ep-feat">
+              <div class="ep-feat-icon" style="background:rgba(59,130,246,0.1);">🗺️</div>
+              <div class="ep-feat-text">
+                <strong>Personalized Roadmap</strong>
+                <span>Week-by-week plan based on your timeline & goals</span>
+              </div>
+            </div>
+            <div class="ep-feat">
+              <div class="ep-feat-icon" style="background:rgba(245,158,11,0.1);">📚</div>
+              <div class="ep-feat-text">
+                <strong>Curated Resources</strong>
+                <span>YouTube, LeetCode, HackerRank — matched to your gaps</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ep-footer">No account needed · All data stays in your browser · 100% free</div>
+    </div>
+
+    <!-- RIGHT: Assessment Form -->
+    <div class="entry-form-panel">
+      <div class="ef-header">
+        <h2>Start Your Assessment</h2>
+        <p>Takes about 2 minutes. Be honest for the most accurate roadmap.</p>
+      </div>
+
+      <form id="form-entry" onsubmit="handleEntrySubmit(event)" novalidate>
+
+        <!-- Name field — highlighted -->
+        <div class="name-band">
+          <div class="name-band-icon">👤</div>
+          <div class="name-band-field">
+            <label for="e-name">Your Name</label>
+            <input class="name-input" type="text" id="e-name" placeholder="Enter your name to personalise your dashboard…" required autocomplete="off"/>
+          </div>
+        </div>
+
+        <!-- Career Goal & Level -->
+        <div class="ef-section">
+          <div class="ef-section-head">
+            <div class="ef-section-icon" style="background:rgba(0,200,150,0.12);">🎯</div>
+            <h4>Career Goal &amp; Level</h4>
+          </div>
+          <div class="ef-section-body">
+            <div class="ef-grid-2">
+              <div class="form-group">
+                <label class="field-label" for="e-goal">Target Career Role</label>
+                <select class="field-input" id="e-goal" required>
+                  <option value="">Choose your path…</option>
+                  <option value="frontend">🖥️ Frontend Developer</option>
+                  <option value="backend">⚙️ Backend Developer</option>
+                  <option value="fullstack">🔗 Full Stack Developer</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="field-label">Skill Level</label>
+                <div class="pill-row" style="margin-top:4px;">
+                  <input class="pill-check" type="radio" name="e-level" id="el-beg" value="beginner" required/>
+                  <label for="el-beg"><span class="pill-icon">🌱</span> Beginner</label>
+                  <input class="pill-check" type="radio" name="e-level" id="el-int" value="intermediate"/>
+                  <label for="el-int"><span class="pill-icon">🚀</span> Intermediate</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Known Skills -->
+        <div class="ef-section">
+          <div class="ef-section-head">
+            <div class="ef-section-icon" style="background:rgba(59,130,246,0.12);">🧠</div>
+            <h4>Skills You Already Know</h4>
+          </div>
+          <div class="ef-section-body">
+            <label class="field-label mb-1" style="margin-bottom:8px;">Select everything you're comfortable using</label>
+            <div class="pill-row">
+              <input class="pill-check" type="checkbox" id="sk-html"   value="HTML"/>
+              <label for="sk-html"><span class="pill-icon">🌐</span> HTML</label>
+              <input class="pill-check" type="checkbox" id="sk-css"    value="CSS"/>
+              <label for="sk-css"><span class="pill-icon">🎨</span> CSS</label>
+              <input class="pill-check" type="checkbox" id="sk-js"     value="JavaScript"/>
+              <label for="sk-js"><span class="pill-icon">⚡</span> JavaScript</label>
+              <input class="pill-check" type="checkbox" id="sk-java"   value="Java"/>
+              <label for="sk-java"><span class="pill-icon">☕</span> Java</label>
+              <input class="pill-check" type="checkbox" id="sk-python" value="Python"/>
+              <label for="sk-python"><span class="pill-icon">🐍</span> Python</label>
+              <input class="pill-check" type="checkbox" id="sk-sql"    value="SQL"/>
+              <label for="sk-sql"><span class="pill-icon">🗄️</span> SQL</label>
+            </div>
+            <p style="font-size:0.72rem;color:var(--text3);margin-top:0.75rem;">💡 Honest answers = better roadmap. You can always retake this later.</p>
+          </div>
+        </div>
+
+        <!-- Schedule -->
+        <div class="ef-section">
+          <div class="ef-section-head">
+            <div class="ef-section-icon" style="background:rgba(245,158,11,0.12);">📅</div>
+            <h4>Study Schedule</h4>
+          </div>
+          <div class="ef-section-body">
+            <div class="ef-grid-2">
+              <div class="form-group">
+                <label class="field-label" for="e-time">Daily Study Time</label>
+                <select class="field-input" id="e-time" required>
+                  <option value="">How much time per day?</option>
+                  <option value="low">⏱️ 1–2 hours per day</option>
+                  <option value="high">⚡ 3–4 hours per day</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="field-label" for="e-timeline">Target Timeline</label>
+                <select class="field-input" id="e-timeline" required>
+                  <option value="">When's your goal date?</option>
+                  <option value="3">📆 3 months</option>
+                  <option value="6">📆 6 months</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Validation error -->
+        <div id="entry-error" style="display:none;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.25);color:#f87171;padding:10px 14px;border-radius:var(--r-sm);font-size:0.82rem;margin-bottom:0.75rem;">
+          ⚠ <span id="entry-error-msg"></span>
+        </div>
+
+        <div class="ef-submit-row">
+          <div class="ef-submit-note">
+            <strong>No account needed.</strong> Your data is saved locally in your browser.
+          </div>
+          <button type="submit" class="btn btn-teal btn-lg">
+            Generate My Roadmap ✨
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     PAGE 2: DASHBOARD
+     Sidebar + all views. Shown after assessment submitted.
+============================================================ -->
+<div class="page dash-page" id="page-dashboard">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="main-sidebar">
+    <div class="sidebar-brand">
+      <div class="logo-mark">🎯</div>
+      <div class="logo-text">CareerPath <span>AI</span></div>
+    </div>
+
+    <!-- Personalised user strip (name from assessment) -->
+    <div class="sidebar-user">
+      <div class="user-avatar" id="sb-avatar">?</div>
+      <div class="user-info">
+        <div class="user-name" id="sb-name">—</div>
+        <div class="user-track" id="sb-track">—</div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Overview</div>
+      <button class="nav-item active" data-view="view-overview"   onclick="showView('view-overview')">
+        <span class="nav-icon">🏠</span> Dashboard
+      </button>
+
+      <div class="nav-section-label">Assessment</div>
+      <button class="nav-item" data-view="view-readiness"  onclick="showView('view-readiness')">
+        <span class="nav-icon">📊</span> Readiness Report
+      </button>
+      <button class="nav-item" data-view="view-gap"        onclick="showView('view-gap')">
+        <span class="nav-icon">🎯</span> Skill Gap Analysis
+      </button>
+
+      <div class="nav-section-label">Learning</div>
+      <button class="nav-item" data-view="view-roadmap"    onclick="showView('view-roadmap')">
+        <span class="nav-icon">🗺️</span> Roadmap
+      </button>
+      <button class="nav-item" data-view="view-resources"  onclick="showView('view-resources')">
+        <span class="nav-icon">📚</span> Resources
+      </button>
+      <button class="nav-item" data-view="view-progress"   onclick="showView('view-progress')">
+        <span class="nav-icon">📈</span> Progress
+        <span class="nav-badge" id="badge-tasks">0</span>
+      </button>
+
+      <div class="nav-section-label">Practice</div>
+      <button class="nav-item" data-view="view-test"        onclick="showView('view-test')">
+        <span class="nav-icon">🧪</span> Practice Test
+      </button>
+      <button class="nav-item" data-view="view-suggestions" onclick="showView('view-suggestions')">
+        <span class="nav-icon">💡</span> Smart Suggestions
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <!-- Retake button — clears assessment and goes back to entry form -->
+      <button class="btn btn-ghost" style="width:100%;justify-content:flex-start;font-size:0.8rem;" onclick="retakeAssessment()">
+        <span>📋</span> Retake Assessment
+      </button>
+      <button class="btn btn-ghost" style="width:100%;justify-content:flex-start;font-size:0.8rem;color:var(--text3);" onclick="resetAllData()">
+        <span>🗑️</span> Clear All Data
+      </button>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    <div class="page-content">
+
+      <!-- ═══════════════ VIEW: OVERVIEW DASHBOARD ═══════════════ -->
+      <div class="view" id="view-overview">
+        <div class="page-top">
+          <div class="page-title-area">
+            <h1 id="overview-greeting">Welcome Back 👋</h1>
+            <p id="overview-subtitle">Here's your career readiness snapshot.</p>
+          </div>
+          <button class="btn btn-teal btn-sm" onclick="retakeAssessment()">📋 Retake Assessment</button>
+        </div>
+
+        <!-- 4 stat tiles -->
+        <div class="grid-4 mb-2" id="overview-stats"></div>
+
+        <!-- Score ring + Today's task -->
+        <div class="grid-2 mt-2">
+          <div class="card">
+            <div class="card-header">
+              <div class="header-icon" style="background:rgba(0,200,150,0.1);">📊</div>
+              <h3>Career Readiness</h3>
+            </div>
+            <div class="card-body flex-center" style="flex-direction:column;gap:1rem;">
+              <div class="score-ring-container">
+                <div class="score-ring">
+                  <svg width="160" height="160" viewBox="0 0 160 160">
+                    <circle class="ring-track" cx="80" cy="80" r="65"/>
+                    <circle class="ring-fill" id="ov-ring" cx="80" cy="80" r="65"/>
+                  </svg>
+                  <div class="ring-center">
+                    <div class="ring-pct" id="ov-pct">0%</div>
+                    <div class="ring-sub">Readiness</div>
+                  </div>
+                </div>
+              </div>
+              <div id="ov-score-label" style="text-align:center;font-size:0.8rem;color:var(--text2);"></div>
+            </div>
+          </div>
+
+          <div>
+            <div class="today-task mb-2">
+              <div class="today-label">Today's Focus</div>
+              <div class="today-title" id="ov-task-title">Loading…</div>
+              <div class="today-desc"  id="ov-task-desc"></div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <div class="header-icon" style="background:rgba(245,158,11,0.1);">🔥</div>
+                <h3>Learning Streak</h3>
+              </div>
+              <div class="card-body">
+                <div style="font-family:'Fraunces',serif;font-size:2.2rem;font-weight:800;color:var(--amber);margin-bottom:8px;" id="ov-streak-num">0 days</div>
+                <div class="streak-bar" id="ov-streak-bar"></div>
+                <div class="mt-2 text-sm text-muted">Mark today's task done in Progress to grow your streak!</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Known / Missing / Quick Actions -->
+        <div class="grid-3 mt-2">
+          <div class="card">
+            <div class="card-header">
+              <div class="header-icon" style="background:rgba(0,200,150,0.1);">✅</div>
+              <h3>Known Skills</h3>
+              <span class="badge-sm tag-green" id="ov-known-count">0</span>
+            </div>
+            <div class="card-body" id="ov-known-skills">
+              <div class="empty-state"><div class="es-icon">🌱</div>No assessment data</div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <div class="header-icon" style="background:rgba(239,68,68,0.1);">🎯</div>
+              <h3>Skill Gaps</h3>
+              <span class="badge-sm tag-red" id="ov-missing-count">0</span>
+            </div>
+            <div class="card-body" id="ov-missing-skills">
+              <div class="empty-state"><div class="es-icon">🔍</div>No gaps identified</div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <div class="header-icon" style="background:rgba(139,92,246,0.1);">🚀</div>
+              <h3>Quick Actions</h3>
+            </div>
+            <div class="card-body" style="display:flex;flex-direction:column;gap:8px;">
+              <button class="btn btn-outline" style="justify-content:flex-start;width:100%;" onclick="showView('view-roadmap')">🗺️ View Roadmap</button>
+              <button class="btn btn-outline" style="justify-content:flex-start;width:100%;" onclick="showView('view-test')">🧪 Take Practice Test</button>
+              <button class="btn btn-outline" style="justify-content:flex-start;width:100%;" onclick="showView('view-resources')">📚 Browse Resources</button>
+              <button class="btn btn-outline" style="justify-content:flex-start;width:100%;" onclick="showView('view-suggestions')">💡 Smart Suggestions</button>
+            </div>
+          </div>
+        </div>
+      </div><!-- /view-overview -->
+
+      <!-- ═══════════════ VIEW: READINESS REPORT ═══════════════ -->
+      <div class="view" id="view-readiness">
+        <div class="page-top">
+          <div class="page-title-area">
+            <h1>Readiness Report</h1>
+            <p>Your personalised career readiness analysis.</p>
+          </div>
+          <button class="btn btn-outline btn-sm" onclick="retakeAssessment()">✎ Retake</button>
+        </div>
+        <div class="grid-2">
+          <div class="card" style="background:linear-gradient(145deg,var(--navy2),var(--navy3));">
+            <div class="card-body" style="display:flex;flex-direction:column;align-items:center;gap:1.25rem;padding:2rem;">
+              <div class="score-ring-container">
+                <div class="score-ring">
+                  <svg width="160" height="160" viewBox="0 0 160 160">
+                    <circle class="ring-track" cx="80" cy="80" r="65"/>
+                    <circle class="ring-fill" id="rd-ring" cx="80" cy="80" r="65"/>
+                  </svg>
+                  <div class="ring-center">
+                    <div class="ring-pct" id="rd-pct">0%</div>
+                    <div class="ring-sub">Readiness</div>
+                  </div>
+                </div>
+              </div>
+              <div id="rd-grade-text" style="font-family:'Fraunces',serif;font-size:1.2rem;font-weight:700;text-align:center;color:var(--text);"></div>
+              <div id="rd-meta-chips" class="flex-wrap" style="justify-content:center;"></div>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:1.25rem;">
+            <div class="card">
+              <div class="card-header">
+                <div class="header-icon" style="background:rgba(0,200,150,0.1);">📈</div>
+                <h3>Score Breakdown</h3>
+              </div>
+              <div class="card-body" id="rd-breakdown" style="display:flex;flex-direction:column;gap:1rem;"></div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <div class="header-icon" style="background:rgba(59,130,246,0.1);">💬</div>
+                <h3>Assessment Summary</h3>
+              </div>
+              <div class="card-body">
+                <p id="rd-summary-text" style="font-size:0.85rem;color:var(--text2);line-height:1.7;"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="grid-2 mt-2">
+          <div class="card">
+            <div class="card-header">
+              <div class="header-icon" style="background:rgba(0,200,150,0.1);">✅</div>
+              <h3>Your Strengths</h3>
+              <span class="badge-sm tag-green" id="rd-known-count">0</span>
+            </div>
+            <div class="card-body flex-wrap" id="rd-known-list"></div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <div class="header-icon" style="background:rgba(239,68,68,0.1);">🎯</div>
+              <h3>Weak Areas</h3>
+              <span class="badge-sm tag-red" id="rd-missing-count">0</span>
+            </div>
+            <div class="card-body flex-wrap" id="rd-missing-list"></div>
+          </div>
+        </div>
+        <div class="mt-3" style="display:flex;gap:10px;flex-wrap:wrap;">
+          <button class="btn btn-teal"    onclick="showView('view-roadmap')">🗺️ View My Roadmap</button>
+          <button class="btn btn-outline" onclick="showView('view-gap')">🎯 Skill Gap Analysis</button>
+          <button class="btn btn-outline" onclick="showView('view-resources')">📚 Learning Resources</button>
+        </div>
+      </div><!-- /view-readiness -->
+
+      <!-- ═══════════════ VIEW: ROADMAP ═══════════════ -->
+      <div class="view" id="view-roadmap">
+        <div class="page-top">
+          <div class="page-title-area">
+            <h1>Learning Roadmap</h1>
+            <p id="roadmap-subtitle">Your personalised week-by-week study plan.</p>
+          </div>
+          <span class="skill-tag tag-amber" id="roadmap-badge">— Plan</span>
+        </div>
+        <div class="card mb-2">
+          <div class="card-body">
+            <div class="timeline" id="roadmap-timeline"></div>
+          </div>
+        </div>
+        <div class="grid-3 mt-2" id="roadmap-milestones"></div>
+      </div><!-- /view-roadmap -->
+
+      <!-- ═══════════════ VIEW: RESOURCES ═══════════════ -->
+      <div class="view" id="view-resources">
+        <div class="page-top">
+          <div class="page-title-area">
+            <h1>Learning Resources</h1>
+            <p>Curated YouTube topics, LeetCode & HackerRank problems tailored to your skill gaps.</p>
+          </div>
+        </div>
+        <!-- Tab bar -->
+        <div style="display:flex;gap:4px;background:var(--navy2);border:1px solid var(--border);border-radius:var(--r-sm);padding:4px;width:fit-content;margin-bottom:1.5rem;">
+          <button class="btn btn-sm" id="res-tab-yt"  onclick="switchResourceTab('youtube')"   >▶ YouTube</button>
+          <button class="btn btn-sm" id="res-tab-lc"  onclick="switchResourceTab('leetcode')"  >⚡ LeetCode</button>
+          <button class="btn btn-sm" id="res-tab-hr"  onclick="switchResourceTab('hackerrank')">🟢 HackerRank</button>
+        </div>
+        <div id="res-youtube"   ></div>
+        <div id="res-leetcode"  style="display:none;"></div>
+        <div id="res-hackerrank" style="display:none;"></div>
+      </div><!-- /view-resources -->
+
+      <!-- ═══════════════ VIEW: PRACTICE TEST ═══════════════ -->
+      <div class="view" id="view-test">
+        <div class="page-top">
+          <div class="page-title-area">
+            <h1>Practice Test</h1>
+            <p>Test your knowledge with MCQ-based questions.</p>
+          </div>
+        </div>
+        <div id="test-intro">
+          <div class="card" style="max-width:520px;">
+            <div class="card-body" style="text-align:center;padding:2.5rem;">
+              <div style="font-size:3rem;margin-bottom:1rem;">🧪</div>
+              <div style="font-family:'Fraunces',serif;font-size:1.4rem;font-weight:800;margin-bottom:0.5rem;">Ready to Test?</div>
+              <p style="font-size:0.85rem;color:var(--text2);margin-bottom:1.5rem;line-height:1.6;">10 MCQ questions covering HTML, CSS & JavaScript basics. Get instant feedback and a performance score.</p>
+              <div style="display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;margin-bottom:1.5rem;">
+                <div style="text-align:center;"><div style="font-family:'Fraunces',serif;font-size:1.8rem;font-weight:800;color:var(--teal);">10</div><div style="font-size:0.73rem;color:var(--text3);">Questions</div></div>
+                <div style="text-align:center;"><div style="font-family:'Fraunces',serif;font-size:1.8rem;font-weight:800;color:var(--amber);">MCQ</div><div style="font-size:0.73rem;color:var(--text3);">Format</div></div>
+                <div style="text-align:center;"><div style="font-family:'Fraunces',serif;font-size:1.1rem;font-weight:800;color:var(--blue);margin-top:4px;">Instant</div><div style="font-size:0.73rem;color:var(--text3);">Results</div></div>
+              </div>
+              <button class="btn btn-teal btn-lg" onclick="startTest()">Start Test →</button>
+            </div>
+          </div>
+        </div>
+        <div id="test-questions" style="display:none;"></div>
+        <div id="test-result"    style="display:none;"></div>
+      </div><!-- /view-test -->
+
+      <!-- ═══════════════ VIEW: SKILL GAP ANALYSIS ═══════════════ -->
+      <div class="view" id="view-gap">
+        <div class="page-top">
+          <div class="page-title-area">
+            <h1>Skill Gap Analysis</h1>
+            <p>Visualise your strengths and what you still need to learn.</p>
+          </div>
+          <button class="btn btn-outline btn-sm" onclick="retakeAssessment()">✎ Update Assessment</button>
+        </div>
+        <div id="gap-content"></div>
+      </div><!-- /view-gap -->
+
+      <!-- ═══════════════ VIEW: PROGRESS TRACKER ═══════════════ -->
+      <div class="view" id="view-progress">
+        <div class="page-top">
+          <div class="page-title-area">
+            <h1>Progress Tracker</h1>
+            <p>Track your roadmap completion and daily tasks.</p>
+          </div>
+          <button class="btn btn-outline btn-sm" onclick="clearProgress()">↺ Reset Progress</button>
+        </div>
+        <div class="grid-2">
+          <div>
+            <div class="today-task mb-2">
+              <div class="today-label">Today's Task</div>
+              <div class="today-title" id="prog-task-title">No task assigned</div>
+              <div class="today-desc"  id="prog-task-desc">Complete the skill assessment to get your daily tasks.</div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <div class="header-icon" style="background:rgba(245,158,11,0.1);">🔥</div>
+                <h3>Learning Streak</h3>
+              </div>
+              <div class="card-body">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+                  <div>
+                    <div style="font-family:'Fraunces',serif;font-size:2.4rem;font-weight:800;color:var(--amber);line-height:1;" id="streak-num">0</div>
+                    <div style="font-size:0.75rem;color:var(--text2);">day streak</div>
+                  </div>
+                  <button class="btn btn-amber btn-sm" onclick="markTodayDone()">✓ Mark Today Done</button>
+                </div>
+                <label class="section-label">Last 21 Days</label>
+                <div class="streak-bar" id="streak-bar-full"></div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <div class="header-icon" style="background:rgba(139,92,246,0.1);">📋</div>
+              <h3>Roadmap Checklist</h3>
+              <span class="badge-sm tag-green" id="checklist-pct-badge">0%</span>
+            </div>
+            <div class="card-body">
+              <div class="h-progress-track mb-2">
+                <div class="h-progress-fill" id="checklist-progress-bar" style="background:linear-gradient(90deg,var(--teal),var(--teal3));"></div>
+              </div>
+              <div id="roadmap-checklist"></div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /view-progress -->
+
+      <!-- ═══════════════ VIEW: SMART SUGGESTIONS ═══════════════ -->
+      <div class="view" id="view-suggestions">
+        <div class="page-top">
+          <div class="page-title-area">
+            <h1>Smart Suggestions</h1>
+            <p>Personalised recommendations based on your profile and skill gaps.</p>
+          </div>
+        </div>
+        <div class="grid-2 mb-2">
+          <div class="suggestion-card" id="sug-topic"></div>
+          <div class="suggestion-card" id="sug-projects"></div>
+        </div>
+        <div class="grid-3 mb-2">
+          <div class="suggestion-card" id="sug-resume"></div>
+          <div class="suggestion-card" id="sug-certs"></div>
+          <div class="suggestion-card" id="sug-tools"></div>
+        </div>
+        <div class="quote-card" id="sug-quote"></div>
+      </div><!-- /view-suggestions -->
+
+    </div><!-- /page-content -->
+  </main>
+</div><!-- /page-dashboard -->
+
+
+<script>
+/* ================================================================
+   CareerPath AI — Application Logic
+   No backend. No login. Pure localStorage + Vanilla JS.
+
+   FLOW:
+   1. App loads → check localStorage for saved assessment
+   2. If assessment exists → go straight to dashboard
+   3. If no assessment → show entry/assessment form (page-entry)
+   4. On form submit → calculateScore() → save → go to dashboard
+
+   KEY FUNCTIONS:
+   - calculateScore()      : readiness % from skill overlap
+   - buildRoadmap()        : week-by-week phases from goal+timeline
+   - handleEntrySubmit()   : captures form, saves, navigates
+   - showView()            : SPA navigation between dashboard views
+   - render*()             : populates each view with live data
+   ================================================================ */
+
+
+/* ──────────────────────────────────────────────────────────────
+   DATA CONSTANTS
+────────────────────────────────────────────────────────────── */
+
+/**
+ * CAREER_SKILLS — defines which skills are REQUIRED for each role.
+ * Used in calculateScore() to find matched vs. missing skills.
+ */
+const CAREER_SKILLS = {
+  frontend:  { required: ['HTML', 'CSS', 'JavaScript'],             label: 'Frontend Developer',   icon: '🖥️' },
+  backend:   { required: ['Python', 'SQL', 'JavaScript'],           label: 'Backend Developer',    icon: '⚙️' },
+  fullstack: { required: ['HTML', 'CSS', 'JavaScript', 'Python', 'SQL'], label: 'Full Stack Developer', icon: '🔗' }
+};
+
+/** 10 MCQ questions for the practice test */
+const MCQ_QUESTIONS = [
+  { q: 'What does HTML stand for?',
+    opts: ['HyperText Markup Language','High Tech Modern Language','HyperText Modern Layout','HyperText Method Language'],
+    correct: 0, topic: 'HTML' },
+  { q: 'Which HTML tag defines an internal style sheet?',
+    opts: ['<css>','<script>','<style>','<link>'],
+    correct: 2, topic: 'HTML' },
+  { q: 'Which CSS property controls the text size?',
+    opts: ['font-style','text-size','font-size','text-style'],
+    correct: 2, topic: 'CSS' },
+  { q: 'What does CSS stand for?',
+    opts: ['Creative Style Sheets','Computer Style Sheets','Cascading Style Sheets','Colorful Style Sheets'],
+    correct: 2, topic: 'CSS' },
+  { q: 'Which is NOT a JavaScript data type?',
+    opts: ['String','Boolean','Float','Number'],
+    correct: 2, topic: 'JavaScript' },
+  { q: 'How do you declare a variable in modern JavaScript?',
+    opts: ['var x = 5','let x = 5','Both are valid','x = 5'],
+    correct: 1, topic: 'JavaScript' },
+  { q: 'Which CSS selector targets elements with class "box"?',
+    opts: ['#box','.box','*box','box'],
+    correct: 1, topic: 'CSS' },
+  { q: 'What is the correct way to write a JavaScript array?',
+    opts: ['var x=(1,2,3)','var x="1,2,3"','var x=[1,2,3]','var x={1,2,3}'],
+    correct: 2, topic: 'JavaScript' },
+  { q: 'Which HTML attribute defines inline styles?',
+    opts: ['class','font','styles','style'],
+    correct: 3, topic: 'HTML' },
+  { q: 'How do you select an element with id "demo" in JavaScript?',
+    opts: ['document.getElement("demo")','document.getElementById("demo")','document.query("#demo")','getElementById("demo")'],
+    correct: 1, topic: 'JavaScript' }
+];
+
+/** Static resources — YouTube, LeetCode, HackerRank */
+const RESOURCES = {
+  youtube: {
+    HTML: [
+      { title: 'HTML Full Course – Build a Website Tutorial',      channel: 'freeCodeCamp',  duration: '2h',   level: 'Beginner',     url: 'https://www.youtube.com/watch?v=pQN-pnXPaVg' },
+      { title: 'HTML Crash Course for Absolute Beginners',         channel: 'Traversy Media', duration: '1.5h', level: 'Beginner',     url: 'https://www.youtube.com/watch?v=UB1O30fR-EE' },
+      { title: 'HTML Tables, Forms & Semantic Tags Deep Dive',     channel: 'Kevin Powell',   duration: '45m',  level: 'Intermediate', url: 'https://www.youtube.com/watch?v=bn-DQznEItM' }
+    ],
+    CSS: [
+      { title: 'CSS Tutorial – Zero to Hero (Complete)',            channel: 'freeCodeCamp',  duration: '6h',   level: 'Beginner',     url: 'https://www.youtube.com/watch?v=1Rs2ND1ryYc' },
+      { title: 'CSS Flexbox Crash Course',                          channel: 'Traversy Media', duration: '1h',   level: 'Intermediate', url: 'https://www.youtube.com/watch?v=3YW65K6LcIA' },
+      { title: 'CSS Grid Tutorial — Full Course',                   channel: 'Kevin Powell',   duration: '1.5h', level: 'Intermediate', url: 'https://www.youtube.com/watch?v=rg7Fvvl3taU' }
+    ],
+    JavaScript: [
+      { title: 'JavaScript Programming – Full Course',              channel: 'freeCodeCamp',  duration: '8h',   level: 'Beginner',     url: 'https://www.youtube.com/watch?v=jS4aFq5-91M' },
+      { title: 'JavaScript DOM Manipulation Crash Course',          channel: 'Traversy Media', duration: '1h',   level: 'Intermediate', url: 'https://www.youtube.com/watch?v=0ik6X4DJKCc' },
+      { title: 'Async JS – Callbacks, Promises, Async/Await',       channel: 'Traversy Media', duration: '1h',   level: 'Advanced',     url: 'https://www.youtube.com/watch?v=PoRJizFvM7s' }
+    ],
+    Python: [
+      { title: 'Python for Beginners – Full Course',                channel: 'freeCodeCamp',  duration: '4h',   level: 'Beginner',     url: 'https://www.youtube.com/watch?v=rfscVS0vtbw' },
+      { title: 'Python OOP Tutorial – Full Course',                 channel: 'Tech With Tim',  duration: '2h',   level: 'Intermediate', url: 'https://www.youtube.com/watch?v=JeznW_7DlB0' },
+      { title: 'Django Web Framework – Full Course',                channel: 'freeCodeCamp',  duration: '3.5h', level: 'Advanced',     url: 'https://www.youtube.com/watch?v=F5mRW0jo-U4' }
+    ],
+    SQL: [
+      { title: 'SQL Tutorial – Full Database Course for Beginners', channel: 'freeCodeCamp',  duration: '4h',   level: 'Beginner',     url: 'https://www.youtube.com/watch?v=HXV3zeQKqGY' },
+      { title: 'MySQL Crash Course | Learn SQL',                    channel: 'Traversy Media', duration: '1.5h', level: 'Beginner',     url: 'https://www.youtube.com/watch?v=9ylj9NR0Lcg' },
+      { title: 'Advanced SQL – Subqueries & Window Functions',      channel: 'Alex The Analyst',duration: '45m', level: 'Advanced',     url: 'https://www.youtube.com/watch?v=9URM1_2S0ho' }
+    ]
+  },
+  leetcode: [
+    { title: 'Two Sum',                         difficulty: 'Easy',   topic: 'Arrays',              url: 'https://leetcode.com/problems/two-sum/' },
+    { title: 'Reverse String',                  difficulty: 'Easy',   topic: 'Strings',             url: 'https://leetcode.com/problems/reverse-string/' },
+    { title: 'Valid Parentheses',               difficulty: 'Easy',   topic: 'Stack',               url: 'https://leetcode.com/problems/valid-parentheses/' },
+    { title: 'Best Time to Buy and Sell Stock', difficulty: 'Easy',   topic: 'Arrays',              url: 'https://leetcode.com/problems/best-time-to-buy-and-sell-stock/' },
+    { title: 'Contains Duplicate',              difficulty: 'Easy',   topic: 'Hash Table',          url: 'https://leetcode.com/problems/contains-duplicate/' },
+    { title: 'Maximum Subarray',                difficulty: 'Medium', topic: 'Dynamic Programming', url: 'https://leetcode.com/problems/maximum-subarray/' },
+    { title: 'Climbing Stairs',                 difficulty: 'Easy',   topic: 'Dynamic Programming', url: 'https://leetcode.com/problems/climbing-stairs/' },
+    { title: 'Merge Two Sorted Lists',          difficulty: 'Easy',   topic: 'Linked List',         url: 'https://leetcode.com/problems/merge-two-sorted-lists/' },
+    { title: 'Binary Search',                   difficulty: 'Easy',   topic: 'Binary Search',       url: 'https://leetcode.com/problems/binary-search/' },
+    { title: 'Longest Common Prefix',           difficulty: 'Easy',   topic: 'Strings',             url: 'https://leetcode.com/problems/longest-common-prefix/' }
+  ],
+  hackerrank: [
+    { title: 'Hello World!',              difficulty: 'Easy',   domain: 'Python',           topic: 'Introduction', url: 'https://www.hackerrank.com/challenges/py-hello-world' },
+    { title: 'Solve Me First',            difficulty: 'Easy',   domain: 'Problem Solving',  topic: 'Warmup',       url: 'https://www.hackerrank.com/challenges/solve-me-first' },
+    { title: 'Simple Array Sum',          difficulty: 'Easy',   domain: 'Problem Solving',  topic: 'Warmup',       url: 'https://www.hackerrank.com/challenges/simple-array-sum' },
+    { title: 'Staircase',                 difficulty: 'Easy',   domain: 'Problem Solving',  topic: 'Loops',        url: 'https://www.hackerrank.com/challenges/staircase' },
+    { title: 'Introduction to SQL',       difficulty: 'Easy',   domain: 'SQL',              topic: 'Basic Select', url: 'https://www.hackerrank.com/domains/sql' },
+    { title: 'Revising the Select Query', difficulty: 'Easy',   domain: 'SQL',              topic: 'Basic Select', url: 'https://www.hackerrank.com/challenges/revising-the-select-query' },
+    { title: 'JavaScript Intro',          difficulty: 'Easy',   domain: 'JavaScript',       topic: 'Introduction', url: 'https://www.hackerrank.com/domains/tutorials/10-days-of-javascript' },
+    { title: 'Exceptions in Python',      difficulty: 'Medium', domain: 'Python',           topic: 'Exceptions',   url: 'https://www.hackerrank.com/challenges/the-python-exception-group' }
+  ]
+};
+
+/** Smart suggestions content (static, goal-based) */
+const SUGGESTIONS = {
+  topics: {
+    frontend:  { name: 'CSS Flexbox & Grid',          desc: 'Master modern layout systems — essential for every frontend role.',         icon: '🎨' },
+    backend:   { name: 'REST API Design',              desc: 'Learn to build scalable, well-structured APIs with Python or Node.',        icon: '⚙️' },
+    fullstack: { name: 'Full Stack with React + Node', desc: 'Connect frontend and backend skills into complete web applications.',       icon: '🔗' }
+  },
+  projects: {
+    frontend:  ['Personal Portfolio Website', 'Responsive Product Landing Page', 'To-Do App with localStorage', 'Weather App with Free API', 'Netflix / Spotify UI Clone'],
+    backend:   ['REST API with CRUD Operations', 'JWT Authentication System', 'URL Shortener Service', 'Blog CMS Backend', 'Chat App with WebSockets'],
+    fullstack: ['Full Stack Blog with Auth', 'E-Commerce Platform', 'Job Board Application', 'Real-time Chat App', 'Task Manager with Team Features']
+  },
+  certs: {
+    frontend:  ['freeCodeCamp Responsive Web Design', 'Google UX Design Certificate', 'Meta Front-End Professional Certificate'],
+    backend:   ['AWS Solutions Architect', 'Google Associate Cloud Engineer', 'Meta Back-End Professional Certificate'],
+    fullstack: ['freeCodeCamp Full Stack Certification', 'The Odin Project Full Stack', 'Meta Full-Stack Developer Certificate']
+  },
+  quotes: [
+    { text: 'The secret to getting ahead is getting started.', author: 'Mark Twain' },
+    { text: 'It does not matter how slowly you go as long as you do not stop.', author: 'Confucius' },
+    { text: 'Code is like humor. When you have to explain it, it\'s bad.', author: 'Cory House' },
+    { text: 'Every expert was once a beginner. Keep shipping.', author: 'Robin Sharma' },
+    { text: 'The best way to predict the future is to build it.', author: 'Alan Kay' },
+    { text: 'First, solve the problem. Then, write the code.', author: 'John Johnson' },
+    { text: 'Learning is the only thing the mind never exhausts, never fears, and never regrets.', author: 'Leonardo da Vinci' }
+  ]
+};
+
+
+/* ──────────────────────────────────────────────────────────────
+   LOCAL STORAGE HELPERS
+   All app state lives in localStorage under 'cp_*' keys.
+────────────────────────────────────────────────────────────── */
+const getAssessment = () => JSON.parse(localStorage.getItem('cp_assessment') || 'null');
+const getProgress   = () => JSON.parse(localStorage.getItem('cp_progress')   || '{"checked":[],"streak":[],"lastDate":""}');
+const getTestScore  = () => JSON.parse(localStorage.getItem('cp_test')        || 'null');
+
+const saveAssessment = d => localStorage.setItem('cp_assessment', JSON.stringify(d));
+const saveProgress   = d => localStorage.setItem('cp_progress',   JSON.stringify(d));
+const saveTestScore  = d => localStorage.setItem('cp_test',       JSON.stringify(d));
+
+
+/* ──────────────────────────────────────────────────────────────
+   SCORE CALCULATION
+   Readiness % is computed from three factors:
+     1. Skill Coverage  (0–65 pts) — how many REQUIRED skills the user knows
+     2. Level Bonus     (0–20 pts) — intermediate adds 20 pts
+     3. Study Bonus     (0–15 pts) — 3–4 hrs/day adds 15 pts, 1–2 hrs adds 5
+   Max possible score: 65 + 20 + 15 = 100%
+────────────────────────────────────────────────────────────── */
+function calculateScore(goal, known, level, studyTime) {
+  const required   = CAREER_SKILLS[goal].required;
+
+  // Matched = skills user knows that are also required for the role
+  const matched    = required.filter(s => known.includes(s));
+  // Missing = required skills the user does NOT know yet
+  const missing    = required.filter(s => !known.includes(s));
+
+  // Factor 1: proportion of required skills covered (up to 65 pts)
+  const skillScore = Math.round((matched.length / required.length) * 65);
+
+  // Factor 2: experience level bonus
+  const levelBonus = level === 'intermediate' ? 20 : 0;
+
+  // Factor 3: daily commitment bonus
+  const timeBonus  = studyTime === 'high' ? 15 : 5;
+
+  // Cap at 100
+  const score = Math.min(100, skillScore + levelBonus + timeBonus);
+
+  return { score, matched, missing };
+}
+
+
+/* ──────────────────────────────────────────────────────────────
+   ROADMAP BUILDER
+   Divides the timeline into 3 phases:
+     Phase 1 — Foundation (weeks 1 to ⅓ of total)
+     Phase 2 — Skill Expansion (⅓ to ⅔)
+     Phase 3 — Portfolio & Job Readiness (⅔ to end)
+   Tasks are customised based on missing skills and study pace.
+────────────────────────────────────────────────────────────── */
+function buildRoadmap(goal, missing, known, timeline, studyTime) {
+  const totalWeeks = timeline * 4;   // months → weeks
+  const w1 = Math.ceil(totalWeeks / 3);
+  const w2 = Math.ceil(totalWeeks * 2 / 3);
+  const phases = [];
+
+  // ── Phase 1 ────────────────────────────────────────────────
+  const p1Skills = missing.slice(0, Math.ceil(missing.length / 2));
+  phases.push({
+    week: `Wk 1–${w1}`,
+    title: p1Skills.length ? '📚 Foundation Building' : '⚡ Deepen Core Skills',
+    tasks: p1Skills.length
+      ? [
+          `Master the basics of: ${p1Skills.join(', ')}`,
+          'Use freeCodeCamp, MDN Docs, or The Odin Project',
+          studyTime === 'high'
+            ? 'Study 3–4 hrs/day: 2 hrs theory + 2 hrs hands-on coding'
+            : 'Study 1 hr theory + 1 hr hands-on practice daily',
+          'Build small exercises after every concept — no skipping!'
+        ]
+      : [
+          `Level up: ${known.slice(0, 2).join(', ')} with advanced patterns`,
+          'Solve 2–3 coding challenges daily on LeetCode / HackerRank',
+          'Rebuild a familiar project from scratch (good for muscle memory)',
+          'Read official documentation in depth for at least 1 skill'
+        ],
+    milestone: 'Mini Project #1 — Basic UI Component or Utility Script'
+  });
+
+  // ── Phase 2 ────────────────────────────────────────────────
+  const p2Skills = missing.slice(Math.ceil(missing.length / 2));
+  phases.push({
+    week: `Wk ${w1 + 1}–${w2}`,
+    title: '🔧 Skill Expansion',
+    tasks: [
+      p2Skills.length
+        ? `Learn: ${p2Skills.join(', ')} — focus on real-world usage`
+        : `Explore popular frameworks for ${CAREER_SKILLS[goal].label}`,
+      goal === 'frontend'
+        ? 'Build a fully responsive multi-page portfolio website'
+        : goal === 'backend'
+        ? 'Build a REST API with complete CRUD operations + database'
+        : 'Build a full-stack mini app (frontend + backend + database)',
+      'Commit code to GitHub every day — build a public portfolio',
+      'Join a developer community (Discord, Dev.to, Twitter/X)'
+    ],
+    milestone: 'Mini Project #2 — Feature-Complete App'
+  });
+
+  // ── Phase 3 ────────────────────────────────────────────────
+  phases.push({
+    week: `Wk ${w2 + 1}–${totalWeeks}`,
+    title: '🚀 Portfolio & Job Readiness',
+    tasks: [
+      'Build 2 polished, end-to-end portfolio projects',
+      'Write professional READMEs; deploy on Vercel / Railway / Render',
+      'Start applying for internships and junior developer roles',
+      'Prep for technical interviews: DSA basics + system design concepts',
+      'Update LinkedIn, GitHub profile, and resume with your projects'
+    ],
+    milestone: 'Capstone Project — Production-Ready Portfolio App'
+  });
+
+  return phases;
+}
+
+
+/* ──────────────────────────────────────────────────────────────
+   PAGE NAVIGATION
+   Two top-level pages: page-entry and page-dashboard
+────────────────────────────────────────────────────────────── */
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+
+/* ──────────────────────────────────────────────────────────────
+   VIEW NAVIGATION (within dashboard)
+   Each call hides all views, shows the target, updates nav,
+   then calls the appropriate render function.
+────────────────────────────────────────────────────────────── */
+function showView(id) {
+  // Hide all views
+  document.querySelectorAll('.view').forEach(v => {
+    v.classList.remove('active');
+    v.style.display = 'none';
+  });
+
+  // Clear all nav active states
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+
+  // Show target view
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.style.display = 'block';
+  el.classList.add('active');
+
+  // Mark matching nav item active
+  document.querySelectorAll(`[data-view="${id}"]`).forEach(n => n.classList.add('active'));
+
+  // Trigger view-specific render
+  const renders = {
+    'view-overview':    renderOverview,
+    'view-readiness':   renderReadiness,
+    'view-roadmap':     renderRoadmap,
+    'view-resources':   renderResources,
+    'view-gap':         renderGapAnalysis,
+    'view-progress':    renderProgress,
+    'view-suggestions': renderSuggestions
+  };
+  if (renders[id]) renders[id]();
+
+  closeSidebar();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/** Hide all views on initial dashboard load */
+function initViews() {
+  document.querySelectorAll('.view').forEach(v => {
+    v.classList.remove('active');
+    v.style.display = 'none';
+  });
+}
+
+
+/* ──────────────────────────────────────────────────────────────
+   ENTRY FORM SUBMISSION
+   Validates inputs → calculates score → saves → goes to dashboard
+────────────────────────────────────────────────────────────── */
+function handleEntrySubmit(e) {
+  e.preventDefault();
+  hideEntryError();
+
+  const name     = document.getElementById('e-name').value.trim();
+  const goal     = document.getElementById('e-goal').value;
+  const level    = document.querySelector('input[name="e-level"]:checked')?.value;
+  const studyTime = document.getElementById('e-time').value;
+  const timeline  = parseInt(document.getElementById('e-timeline').value);
+
+  // ── Validation ────────────────────────────────────────────
+  if (!name)     { showEntryError('Please enter your name.'); return; }
+  if (!goal)     { showEntryError('Please select your career goal.'); return; }
+  if (!level)    { showEntryError('Please select your current skill level.'); return; }
+  if (!studyTime){ showEntryError('Please select your daily study time.'); return; }
+  if (!timeline) { showEntryError('Please select your target timeline.'); return; }
+
+  // Collect all checked skill pills
+  const known = Array.from(
+    document.querySelectorAll('.pill-check[type="checkbox"]:checked')
+  ).map(cb => cb.value);
+
+  // Calculate readiness score and skill gaps
+  const { score, matched, missing } = calculateScore(goal, known, level, studyTime);
+
+  // Build and save the assessment object
+  const assessment = {
+    name,
+    goal,
+    level,
+    studyTime,
+    timeline,
+    known,     // all skills the user selected (including non-required ones)
+    matched,   // required skills the user has
+    missing,   // required skills the user is missing (= skill gaps)
+    score,     // readiness percentage
+    date: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
+  };
+
+  saveAssessment(assessment);
+
+fetch("http://localhost:5000/api/assessment", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify(assessment)
+})
+.then(response => response.json())
+.then(data => {
+  console.log("Backend response:", data);
+
+  // Navigate to dashboard
+  enterDashboard(assessment);
+})
+.catch(error => {
+  console.error("Backend connection failed:", error);
+
+  // Still allow the app to work locally
+  enterDashboard(assessment);
+});
+}
+
+function showEntryError(msg) {
+  const el = document.getElementById('entry-error');
+  document.getElementById('entry-error-msg').textContent = msg;
+  el.style.display = 'flex';
+}
+function hideEntryError() {
+  document.getElementById('entry-error').style.display = 'none';
+}
+
+
+/* ──────────────────────────────────────────────────────────────
+   ENTER DASHBOARD
+   Called after form submit OR on page load if data exists.
+   Populates sidebar, shows dashboard, default view = overview.
+────────────────────────────────────────────────────────────── */
+function enterDashboard(a) {
+  // Populate sidebar user strip
+  document.getElementById('sb-avatar').textContent = a.name.charAt(0).toUpperCase();
+  document.getElementById('sb-name').textContent   = a.name;
+  document.getElementById('sb-track').textContent  = CAREER_SKILLS[a.goal].label + ' · ' + a.timeline + 'mo Plan';
+
+  // Switch to dashboard page
+  showPage('page-dashboard');
+  document.getElementById('mobile-header').style.display = 'flex';
+
+  // Init all views hidden, then show overview
+  initViews();
+  showView('view-overview');
+  updateBadgeCounts();
+}
+
+
+/* ──────────────────────────────────────────────────────────────
+   RETAKE ASSESSMENT
+   Goes back to entry form WITHOUT clearing saved data.
+   Useful if user wants to tweak their inputs.
+────────────────────────────────────────────────────────────── */
+function retakeAssessment() {
+  // Pre-fill form with existing data if available
+  const a = getAssessment();
+  if (a) {
+    document.getElementById('e-name').value = a.name || '';
+    document.getElementById('e-goal').value = a.goal || '';
+    if (a.level === 'beginner')      document.getElementById('el-beg').checked = true;
+    if (a.level === 'intermediate')  document.getElementById('el-int').checked = true;
+    document.getElementById('e-time').value     = a.studyTime || '';
+    document.getElementById('e-timeline').value = a.timeline  || '';
+    // Re-check known skills
+    document.querySelectorAll('.pill-check[type="checkbox"]').forEach(cb => {
+      cb.checked = a.known.includes(cb.value);
+    });
+  }
+  document.getElementById('mobile-header').style.display = 'none';
+  showPage('page-entry');
+}
+
+
+/* ──────────────────────────────────────────────────────────────
+   RESET ALL DATA
+   Clears all localStorage and reloads to entry form.
+────────────────────────────────────────────────────────────── */
+function resetAllData() {
+  if (!confirm('This will delete all your progress and assessment data. Continue?')) return;
+  localStorage.removeItem('cp_assessment');
+  localStorage.removeItem('cp_progress');
+  localStorage.removeItem('cp_test');
+  document.getElementById('mobile-header').style.display = 'none';
+  // Reset form
+  document.getElementById('form-entry').reset();
+  showPage('page-entry');
+}
+
+
+/* ──────────────────────────────────────────────────────────────
+   RENDER: OVERVIEW DASHBOARD
+   Populates 4 stat tiles, score ring, today's focus,
+   streak bar, known/missing skills, and quick actions.
+────────────────────────────────────────────────────────────── */
+function renderOverview() {
+  const a    = getAssessment();
+  const prog = getProgress();
+  const test = getTestScore();
+
+  // ── Personalised greeting ──────────────────────────────────
+  if (a) {
+    document.getElementById('overview-greeting').textContent   = `Welcome back, ${a.name} 👋`;
+    document.getElementById('overview-subtitle').textContent  = `${CAREER_SKILLS[a.goal].label} track · Assessed ${a.date}`;
+  }
+
+  // ── Stat tiles ────────────────────────────────────────────
+  const allTasks  = a ? buildRoadmap(a.goal, a.missing, a.matched, a.timeline, a.studyTime).flatMap(p => p.tasks) : [];
+  const tasksDone = prog.checked.filter(t => allTasks.includes(t)).length;
+  const tasksPct  = allTasks.length ? Math.round((tasksDone / allTasks.length) * 100) : 0;
+  const streak    = prog.streak.filter(Boolean).length;
+
+  document.getElementById('overview-stats').innerHTML = `
+    <div class="stat-card">
+      <div class="stat-top">
+        <div class="stat-icon" style="background:rgba(0,200,150,0.1);">📊</div>
+        <span class="stat-delta" style="color:var(--teal);">${a ? a.score + '%' : '--'}</span>
+      </div>
+      <div class="stat-value">${a ? a.score + '%' : '--'}</div>
+      <div class="stat-label">Career Readiness</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-top">
+        <div class="stat-icon" style="background:rgba(59,130,246,0.1);">🔧</div>
+        <span class="stat-delta" style="color:var(--blue);">${a ? '/' + CAREER_SKILLS[a.goal].required.length + ' req.' : '--'}</span>
+      </div>
+      <div class="stat-value">${a ? a.matched.length : '--'}</div>
+      <div class="stat-label">Skills Mastered</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-top">
+        <div class="stat-icon" style="background:rgba(139,92,246,0.1);">📋</div>
+        <span class="stat-delta" style="color:var(--purple);">${tasksPct}%</span>
+      </div>
+      <div class="stat-value">${tasksDone}</div>
+      <div class="stat-label">Tasks Complete</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-top">
+        <div class="stat-icon" style="background:rgba(245,158,11,0.1);">🔥</div>
+        <span class="stat-delta" style="color:var(--amber);">days</span>
+      </div>
+      <div class="stat-value">${streak}</div>
+      <div class="stat-label">Learning Streak</div>
+    </div>`;
+
+  // ── Score ring ────────────────────────────────────────────
+  const score = a ? a.score : 0;
+  const ringColor = score >= 70 ? 'var(--teal)' : score >= 40 ? 'var(--amber)' : '#f87171';
+  const ringEl = document.getElementById('ov-ring');
+  ringEl.style.stroke          = ringColor;
+  ringEl.style.strokeDashoffset = 408;
+  document.getElementById('ov-pct').textContent = '0%';
+  document.getElementById('ov-score-label').textContent = a
+    ? (score >= 80 ? '🎉 You\'re nearly job-ready!' : score >= 50 ? '🙌 Keep going — solid progress!' : '💪 Great start — keep building!')
+    : 'No assessment yet.';
+  setTimeout(() => animateRing('ov-ring', 'ov-pct', score), 300);
+
+  // ── Today's focus task ────────────────────────────────────
+  if (a && allTasks.length) {
+    const next = allTasks.find(t => !prog.checked.includes(t)) || allTasks[0];
+    document.getElementById('ov-task-title').textContent = next;
+    document.getElementById('ov-task-desc').textContent  = `${CAREER_SKILLS[a.goal].label} · ${a.timeline}-Month Plan · ${a.studyTime === 'high' ? '3–4 hrs/day' : '1–2 hrs/day'}`;
+  } else {
+    document.getElementById('ov-task-title').textContent = 'Take your assessment';
+    document.getElementById('ov-task-desc').textContent  = 'Complete the skill assessment to unlock your roadmap and daily tasks.';
+  }
+
+  // ── Streak bar ────────────────────────────────────────────
+  document.getElementById('ov-streak-num').textContent = streak + (streak === 1 ? ' day' : ' days');
+  const streakBar = document.getElementById('ov-streak-bar');
+  const last14 = [...Array(14)].map((_, i) => prog.streak[i] || false);
+  streakBar.innerHTML = last14.map((d, i) =>
+    `<div class="streak-day ${d ? 'active' : ''}" title="Day ${i + 1}"></div>`
+  ).join('');
+
+  // ── Known skills ─────────────────────────────────────────
+  document.getElementById('ov-known-count').textContent = a ? a.matched.length : 0;
+  document.getElementById('ov-known-skills').innerHTML = a && a.matched.length
+    ? `<div class="flex-wrap">${a.matched.map(s => `<span class="skill-tag tag-green">✓ ${s}</span>`).join('')}</div>`
+    : '<div class="empty-state"><div class="es-icon">✅</div>No required skills selected yet</div>';
+
+  // ── Missing skills ───────────────────────────────────────
+  document.getElementById('ov-missing-count').textContent = a ? a.missing.length : 0;
+  document.getElementById('ov-missing-skills').innerHTML = !a
+    ? '<div class="empty-state"><div class="es-icon">🔍</div>No gaps identified</div>'
+    : a.missing.length
+    ? `<div class="flex-wrap">${a.missing.map(s => `<span class="skill-tag tag-red">✗ ${s}</span>`).join('')}</div>`
+    : `<div style="text-align:center;padding:1rem;"><div style="font-size:1.5rem;">🏆</div><div style="font-size:0.8rem;color:var(--teal);font-weight:600;margin-top:4px;">All required skills covered!</div></div>`;
+}
+
+
+/* ──────────────────────────────────────────────────────────────
+   RENDER: READINESS REPORT
+────────────────────────────────────────────────────────────── */
+function renderReadiness() {
+  const a = getAssessment();
+  if (!a) {
+    document.getElementById('view-readiness').innerHTML =
+      `<div class="empty-state"><div class="es-icon">📋</div><p>No assessment data found.</p>
+       <button class="btn btn-teal mt-2" onclick="retakeAssessment()">Take Assessment</button></div>`;
+    return;
+  }
+
+  const { score, goal, level, studyTime, timeline, matched, missing } = a;
+  const ringColor = score >= 70 ? '#00c896' : score >= 40 ? '#f59e0b' : '#ef4444';
+
+  // Ring
+  const rdRing = document.getElementById('rd-ring');
+  rdRing.style.stroke           = ringColor;
+  rdRing.style.strokeDashoffset = 408;
+  document.getElementById('rd-pct').textContent = '0%';
+  setTimeout(() => animateRing('rd-ring', 'rd-pct', score), 300);
+
+  // Grade
+  document.getElementById('rd-grade-text').textContent =
+    score >= 80 ? '🎉 You\'re Nearly Job-Ready!' :
+    score >= 50 ? '🙌 Solid Progress — Keep Going!' : '💪 Great Starting Point!';
+
+  // Meta chips
+  document.getElementById('rd-meta-chips').innerHTML = [
+    { icon: CAREER_SKILLS[goal].icon, text: CAREER_SKILLS[goal].label },
+    { icon: '📈', text: level === 'intermediate' ? 'Intermediate' : 'Beginner' },
+    { icon: '⏱️', text: studyTime === 'high' ? '3–4 hrs/day' : '1–2 hrs/day' },
+    { icon: '📅', text: timeline + '-Month Plan' }
+  ].map(c => `<span class="skill-tag tag-gray">${c.icon} ${c.text}</span>`).join('');
+
+  // Score breakdown (3 bars)
+  const required = CAREER_SKILLS[goal].required;
+  const skillPct = Math.round((matched.length / required.length) * 100);
+  const levelPct = level === 'intermediate' ? 100 : 40;
+  const timePct  = studyTime === 'high' ? 100 : 33;
+  document.getElementById('rd-breakdown').innerHTML = [
+    { label: 'Skill Coverage',    pct: skillPct, color: 'var(--teal)' },
+    { label: 'Experience Level',  pct: levelPct, color: 'var(--blue)' },
+    { label: 'Study Commitment',  pct: timePct,  color: 'var(--purple)' }
+  ].map(b => `
+    <div>
+      <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
+        <span style="font-size:0.8rem;color:var(--text2);">${b.label}</span>
+        <span style="font-size:0.8rem;font-weight:600;color:var(--text);">${b.pct}%</span>
+      </div>
+      <div class="h-progress-track">
+        <div class="h-progress-fill" style="width:${b.pct}%;background:${b.color};"></div>
+      </div>
+    </div>`).join('');
+
+  // Summary paragraph
+  const summaries = {
+    frontend:  `You're targeting a <strong>Frontend Developer</strong> role. Focus on mastering HTML, CSS, and JavaScript to build stunning, accessible UIs.`,
+    backend:   `You're targeting a <strong>Backend Developer</strong> role. Strengthen Python, SQL, and API design skills to build reliable server-side systems.`,
+    fullstack: `You're targeting a <strong>Full Stack Developer</strong> role — one of the most in-demand profiles. Master both frontend and backend for maximum impact.`
+  };
+  document.getElementById('rd-summary-text').innerHTML =
+    summaries[goal] +
+    ` Your current readiness is <strong style="color:var(--teal);">${score}%</strong>. ` +
+    (missing.length ? `Priority skills to learn: <strong>${missing.join(', ')}</strong>.` : 'Excellent — all core skills covered! Now focus on projects.');
+
+  // Skill lists
+  document.getElementById('rd-known-count').textContent   = matched.length;
+  document.getElementById('rd-missing-count').textContent = missing.length;
+  document.getElementById('rd-known-list').innerHTML = matched.length
+    ? matched.map(s => `<span class="skill-tag tag-green">✅ ${s}</span>`).join('')
+    : '<span style="font-size:0.82rem;color:var(--text3);">No required skills selected</span>';
+  document.getElementById('rd-missing-list').innerHTML = missing.length
+    ? missing.map(s => `<span class="skill-tag tag-red">🎯 ${s}</span>`).join('')
+    : `<span class="skill-tag tag-green">🏆 All skills covered!</span>`;
+}
+
+
+/* ──────────────────────────────────────────────────────────────
+   RENDER: ROADMAP
+   Builds 3-phase timeline + milestone cards.
+────────────────────────────────────────────────────────────── */
+function renderRoadmap() {
+  const a = getAssessment();
+  if (!a) {
+    document.getElementById('roadmap-timeline').innerHTML =
+      '<div class="empty-state"><div class="es-icon">🗺️</div>Complete the assessment first.</div>';
+    return;
+  }
+
+  const phases = buildRoadmap(a.goal, a.missing, a.matched, a.timeline, a.studyTime);
+  document.getElementById('roadmap-subtitle').textContent = `${CAREER_SKILLS[a.goal].label} · ${a.timeline * 4}-week plan`;
+  document.getElementById('roadmap-badge').textContent    = `📅 ${a.timeline}-Month Plan`;
+
+  // Timeline HTML
+  document.getElementById('roadmap-timeline').innerHTML = phases.map((phase, i) => `
+    <div class="tl-item">
+      <div class="tl-week"><div class="tl-week-label">${phase.week}</div></div>
+      <div class="tl-line">
+        <div class="tl-dot">${i + 1}</div>
+        ${i < phases.length - 1
+          ? '<div style="flex:1;width:2px;background:linear-gradient(to bottom,var(--teal),var(--border));min-height:20px;margin:4px 0;"></div>'
+          : ''}
+      </div>
+      <div class="tl-content">
+        <div class="tl-title">${phase.title}</div>
+        <ul class="tl-tasks">
+          ${phase.tasks.map(t => `
+            <li class="tl-task">
+              <div class="tl-task-bullet">→</div>
+              <span>${t}</span>
+            </li>`).join('')}
+        </ul>
+      </div>
+    </div>`).join('');
+
+  // Milestone cards below timeline
+  document.getElementById('roadmap-milestones').innerHTML = phases.map((p, i) => `
+    <div class="card" style="border-left:3px solid var(--teal);">
+      <div class="card-body">
+        <div style="font-size:0.67rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal);margin-bottom:6px;">Milestone ${i + 1}</div>
+        <div style="font-size:0.88rem;font-weight:600;color:var(--text);">${p.milestone}</div>
+        <div style="font-size:0.74rem;color:var(--text3);margin-top:4px;">${p.week}</div>
+      </div>
+    </div>`).join('');
+}
+
+
+/* ──────────────────────────────────────────────────────────────
+   RENDER: RESOURCES
+   Loads YouTube, LeetCode, HackerRank tabs.
+   YouTube is scoped to the user's skill GAPS (or all if none).
+────────────────────────────────────────────────────────────── */
+let activeResTab = 'youtube';
+
+function renderResources() {
+  const a      = getAssessment();
+  // Show resources for missing skills first; fall back to all skills
+  const skills = a
+    ? (a.missing.length ? a.missing : CAREER_SKILLS[a.goal].required)
+    : ['HTML', 'CSS', 'JavaScript'];
+
+  // ── YouTube ───────────────────────────────────────────────
+  let ytHTML = '';
+  skills.forEach(skill => {
+    if (!RESOURCES.youtube[skill]) return;
+    ytHTML += `<span class="section-label" style="margin-top:1rem;margin-bottom:0.5rem;">${skill}</span>`;
+    RESOURCES.youtube[skill].forEach(r => {
+      ytHTML += `
+        <div class="resource-item">
+          <div class="res-platform" style="background:rgba(239,68,68,0.12);">▶</div>
+          <div class="res-info">
+            <div class="res-title">
+              <a href="${r.url}" target="_blank" rel="noopener"
+                 style="color:var(--text);text-decoration:none;"
+                 onmouseover="this.style.color='var(--teal)'"
+                 onmouseout="this.style.color='var(--text)'">${r.title}</a>
+            </div>
+            <div class="res-desc">📺 ${r.channel} &nbsp;·&nbsp; ${r.duration}</div>
+          </div>
+          <span class="skill-tag res-tag ${r.level === 'Beginner' ? 'tag-green' : r.level === 'Advanced' ? 'tag-red' : 'tag-amber'}">${r.level}</span>
+        </div>`;
+    });
+  });
+  document.getElementById('res-youtube').innerHTML =
+    ytHTML || '<div class="empty-state"><div class="es-icon">📺</div>No YouTube resources matched.</div>';
+
+  // ── LeetCode ──────────────────────────────────────────────
+  document.getElementById('res-leetcode').innerHTML =
+    `<span class="section-label" style="margin-bottom:0.75rem;">Recommended Problems (Easy → Medium)</span>` +
+    RESOURCES.leetcode.map(p => `
+      <div class="resource-item">
+        <div class="res-platform" style="background:rgba(245,158,11,0.12);">⚡</div>
+        <div class="res-info">
+          <div class="res-title">
+            <a href="${p.url}" target="_blank" rel="noopener"
+               style="color:var(--text);text-decoration:none;"
+               onmouseover="this.style.color='var(--teal)'"
+               onmouseout="this.style.color='var(--text)'">${p.title}</a>
+          </div>
+          <div class="res-desc">Topic: ${p.topic}</div>
+        </div>
+        <span class="skill-tag res-tag ${p.difficulty === 'Easy' ? 'tag-green' : 'tag-amber'}">${p.difficulty}</span>
+      </div>`).join('');
+
+  // ── HackerRank ────────────────────────────────────────────
+  document.getElementById('res-hackerrank').innerHTML =
+    `<span class="section-label" style="margin-bottom:0.75rem;">Recommended Practice Tracks</span>` +
+    RESOURCES.hackerrank.map(p => `
+      <div class="resource-item">
+        <div class="res-platform" style="background:rgba(0,200,150,0.1);">🟢</div>
+        <div class="res-info">
+          <div class="res-title">
+            <a href="${p.url}" target="_blank" rel="noopener"
+               style="color:var(--text);text-decoration:none;"
+               onmouseover="this.style.color='var(--teal)'"
+               onmouseout="this.style.color='var(--text)'">${p.title}</a>
+          </div>
+          <div class="res-desc">Domain: ${p.domain} &nbsp;·&nbsp; ${p.topic}</div>
+        </div>
+        <span class="skill-tag res-tag ${p.difficulty === 'Easy' ? 'tag-green' : 'tag-amber'}">${p.difficulty}</span>
+      </div>`).join('');
+
+  // Apply active tab style
+  switchResourceTab(activeResTab);
+}
+
+function switchResourceTab(tab) {
+  activeResTab = tab;
+  ['youtube', 'leetcode', 'hackerrank'].forEach(t => {
+    document.getElementById(`res-${t}`).style.display = t === tab ? 'block' : 'none';
+  });
+  // Update tab button styles
+  const tabIds = { youtube: 'yt', leetcode: 'lc', hackerrank: 'hr' };
+  Object.entries(tabIds).forEach(([t, id]) => {
+    const btn = document.getElementById(`res-tab-${id}`);
+    if (!btn) return;
+    btn.style.background = t === tab ? 'var(--teal)' : 'transparent';
+    btn.style.color      = t === tab ? 'var(--navy)' : 'var(--text2)';
+  });
+}
+
+
+/* ──────────────────────────────────────────────────────────────
+   RENDER: SKILL GAP ANALYSIS
+   Full grid showing every skill: covered / gap / bonus.
+────────────────────────────────────────────────────────────── */
+function renderGapAnalysis() {
+  const a  = getAssessment();
+  const el = document.getElementById('gap-content');
+
+  if (!a) {
+    el.innerHTML = `<div class="empty-state"><div class="es-icon">🎯</div>
+      <p>No assessment data found.</p>
+      <button class="btn btn-teal mt-2" onclick="retakeAssessment()">Take Assessment</button></div>`;
+    return;
+  }
+
+  const required    = CAREER_SKILLS[a.goal].required;
+  const allSkills   = ['HTML', 'CSS', 'JavaScript', 'Python', 'SQL', 'Java'];
+  const bonusSkills = a.known.filter(s => !required.includes(s));
+
+  el.innerHTML = `
+    <div class="grid-2 mb-2">
+      <!-- Required & Known -->
+      <div class="card" style="border-top:3px solid var(--teal);">
+        <div class="card-header">
+          <div class="header-icon" style="background:rgba(0,200,150,0.1);">✅</div>
+          <h3>Required &amp; Known</h3>
+          <span class="badge-sm tag-green">${a.matched.length}/${required.length}</span>
+        </div>
+        <div class="card-body" style="display:flex;flex-direction:column;gap:8px;">
+          ${a.matched.length
+            ? a.matched.map(s => `
+                <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:rgba(0,200,150,0.05);border:1px solid rgba(0,200,150,0.15);border-radius:var(--r-sm);">
+                  <span style="font-size:1.05rem;">✅</span>
+                  <span style="font-size:0.88rem;font-weight:600;color:var(--text);">${s}</span>
+                  <span class="skill-tag tag-green" style="margin-left:auto;font-size:0.65rem;">Proficient</span>
+                </div>`).join('')
+            : '<div class="empty-state" style="padding:1.5rem;"><div class="es-icon">😕</div>None of the required skills selected</div>'}
+        </div>
+      </div>
+
+      <!-- Skill Gaps -->
+      <div class="card" style="border-top:3px solid #f87171;">
+        <div class="card-header">
+          <div class="header-icon" style="background:rgba(239,68,68,0.1);">🎯</div>
+          <h3>Skill Gaps (Priority)</h3>
+          <span class="badge-sm tag-red">${a.missing.length}</span>
+        </div>
+        <div class="card-body" style="display:flex;flex-direction:column;gap:8px;">
+          ${a.missing.length
+            ? a.missing.map((s, i) => `
+                <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:rgba(239,68,68,0.05);border:1px solid rgba(239,68,68,0.15);border-radius:var(--r-sm);">
+                  <span style="font-size:1.05rem;">🎯</span>
+                  <span style="font-size:0.88rem;font-weight:600;color:var(--text);">${s}</span>
+                  ${i === 0
+                    ? '<span class="skill-tag tag-red" style="margin-left:auto;font-size:0.65rem;">Top Priority</span>'
+                    : '<span class="skill-tag tag-amber" style="margin-left:auto;font-size:0.65rem;">Learn Next</span>'}
+                </div>`).join('')
+            : `<div style="text-align:center;padding:1.5rem;">
+                 <div style="font-size:1.5rem;margin-bottom:6px;">🏆</div>
+                 <div style="font-size:0.82rem;color:var(--teal);font-weight:600;">All required skills covered!</div>
+               </div>`}
+        </div>
+      </div>
+    </div>
+
+    ${bonusSkills.length ? `
+    <div class="card mb-2">
+      <div class="card-header">
+        <div class="header-icon" style="background:rgba(59,130,246,0.1);">⭐</div>
+        <h3>Bonus Skills You Have</h3>
+        <span class="badge-sm tag-blue">${bonusSkills.length}</span>
+      </div>
+      <div class="card-body flex-wrap">
+        ${bonusSkills.map(s => `<span class="skill-tag tag-blue">⭐ ${s}</span>`).join('')}
+      </div>
+    </div>` : ''}
+
+    <!-- Full skills grid -->
+    <div class="card">
+      <div class="card-header">
+        <div class="header-icon" style="background:rgba(245,158,11,0.1);">📊</div>
+        <h3>Full Skills Map — ${CAREER_SKILLS[a.goal].label}</h3>
+      </div>
+      <div class="card-body">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;">
+          ${allSkills.map(s => {
+            const isRequired = required.includes(s);
+            const isKnown    = a.known.includes(s);
+            const icon  = isKnown ? '✅' : (isRequired ? '🎯' : '○');
+            const cls   = isKnown && isRequired ? 'tag-green' : (!isKnown && isRequired ? 'tag-red' : 'tag-gray');
+            const label = isKnown && isRequired ? 'Covered' : (!isKnown && isRequired ? 'Gap' : (isKnown ? 'Bonus' : 'N/A'));
+            return `
+              <div style="display:flex;flex-direction:column;align-items:center;gap:6px;padding:14px;background:var(--navy3);border:1px solid var(--border);border-radius:var(--r);text-align:center;">
+                <span style="font-size:1.4rem;">${icon}</span>
+                <span style="font-size:0.85rem;font-weight:600;color:var(--text);">${s}</span>
+                <span class="skill-tag ${cls}" style="font-size:0.62rem;">${label}</span>
+                ${isRequired ? '<span style="font-size:0.62rem;color:var(--amber);">Required</span>' : ''}
+              </div>`;
+          }).join('')}
+        </div>
+      </div>
+    </div>`;
+}
+
+
+/* ──────────────────────────────────────────────────────────────
+   RENDER: PROGRESS TRACKER
+   Roadmap tasks shown as clickable checklist.
+   Checking a task saves it to localStorage.
+   Progress bar + streak shown.
+────────────────────────────────────────────────────────────── */
+function renderProgress() {
+  const a    = getAssessment();
+  const prog = getProgress();
+
+  if (!a) {
+    document.getElementById('roadmap-checklist').innerHTML =
+      '<div class="empty-state"><div class="es-icon">📋</div>Complete the assessment first.</div>';
+    return;
+  }
+
+  const phases   = buildRoadmap(a.goal, a.missing, a.matched, a.timeline, a.studyTime);
+  const allTasks = phases.flatMap(p => p.tasks);
+  const done     = allTasks.filter(t => prog.checked.includes(t)).length;
+  const pct      = allTasks.length ? Math.round((done / allTasks.length) * 100) : 0;
+
+  // Progress bar
+  document.getElementById('checklist-progress-bar').style.width = pct + '%';
+  document.getElementById('checklist-pct-badge').textContent    = pct + '%';
+
+  // Today's task (first unchecked task)
+  const next = allTasks.find(t => !prog.checked.includes(t));
+  document.getElementById('prog-task-title').textContent = next || '🎉 All tasks complete!';
+  document.getElementById('prog-task-desc').textContent  = next
+    ? `${CAREER_SKILLS[a.goal].label} · Keep your momentum going!`
+    : 'Congratulations — you\'ve completed your entire roadmap!';
+
+  // Streak
+  const streak = prog.streak.filter(Boolean).length;
+  document.getElementById('streak-num').textContent = streak;
+  const sb    = document.getElementById('streak-bar-full');
+  const days  = [...Array(21)].map((_, i) => prog.streak[i] || false);
+  sb.innerHTML = days.map((d, i) =>
+    `<div class="streak-day ${d ? 'active' : (i < prog.streak.length ? 'partial' : '')}" title="Day ${i + 1}"></div>`
+  ).join('');
+
+  // Checklist grouped by phase
+  let html = '';
+  phases.forEach((phase, pi) => {
+    html += `<div class="section-label" style="margin-top:${pi > 0 ? '1.25rem' : '0'};">${phase.title.replace(/^[^\s]+\s/, '')}</div>`;
+    phase.tasks.forEach(task => {
+      const isDone = prog.checked.includes(task);
+      // Escape single quotes in the task string for the inline onclick
+      const safeTask = task.replace(/'/g, "\\'");
+      html += `
+        <div class="checklist-item ${isDone ? 'checked' : ''}" onclick="toggleTask('${safeTask}')">
+          <div class="ci-box">${isDone ? '✓' : ''}</div>
+          <div class="ci-label">${task}</div>
+          ${isDone ? '<span class="skill-tag tag-green" style="font-size:0.62rem;flex-shrink:0;">Done ✓</span>' : ''}
+        </div>`;
+    });
+  });
+  document.getElementById('roadmap-checklist').innerHTML = html;
+  updateBadgeCounts();
+}
+
+/** Toggle a checklist item on/off and re-render */
+function toggleTask(task) {
+  const prog = getProgress();
+  const idx  = prog.checked.indexOf(task);
+  if (idx === -1) prog.checked.push(task);
+  else prog.checked.splice(idx, 1);
+  saveProgress(prog);
+  renderProgress();
+  // Also refresh overview streak if it's visible
+  const ov = document.getElementById('view-overview');
+  if (ov && ov.classList.contains('active')) renderOverview();
+}
+
+/** Mark today as a streak day (once per calendar day) */
+function markTodayDone() {
+  const prog  = getProgress();
+  const today = new Date().toDateString();
+  if (prog.lastDate === today) {
+    alert('Already marked today as done! ✅ Come back tomorrow.');
+    return;
+  }
+  prog.streak.push(true);
+  prog.lastDate = today;
+  saveProgress(prog);
+  renderProgress();
+}
+
+/** Reset all progress (checklist + streak) */
+function clearProgress() {
+  if (!confirm('Reset all progress? This cannot be undone.')) return;
+  saveProgress({ checked: [], streak: [], lastDate: '' });
+  renderProgress();
+}
+
+
+/* ──────────────────────────────────────────────────────────────
+   RENDER: SMART SUGGESTIONS
+   Generates personalised suggestion cards based on goal and level.
+────────────────────────────────────────────────────────────── */
+function renderSuggestions() {
+  const a     = getAssessment();
+  const goal  = a ? a.goal  : 'frontend';
+  const level = a ? a.level : 'beginner';
+
+  // ── Next topic ────────────────────────────────────────────
+  const topic = SUGGESTIONS.topics[goal];
+  document.getElementById('sug-topic').innerHTML = `
+    <div class="sc-banner" style="background:linear-gradient(90deg,var(--teal),var(--teal2));"></div>
+    <div class="sc-body">
+      <div class="sc-icon-row">
+        <div class="sc-icon" style="background:rgba(0,200,150,0.1);">${topic.icon}</div>
+        <div class="sc-label">Recommended Next Topic</div>
+      </div>
+      <div class="sc-title">${topic.name}</div>
+      <div class="sc-desc">${topic.desc}</div>
+      <div class="sc-action">
+        <button class="btn btn-teal btn-sm" onclick="showView('view-resources')">Explore Resources →</button>
+      </div>
+    </div>`;
+
+  // ── Project ideas ─────────────────────────────────────────
+  const projects = SUGGESTIONS.projects[goal];
+  document.getElementById('sug-projects').innerHTML = `
+    <div class="sc-banner" style="background:linear-gradient(90deg,var(--blue),var(--purple));"></div>
+    <div class="sc-body">
+      <div class="sc-icon-row">
+        <div class="sc-icon" style="background:rgba(59,130,246,0.1);">🛠️</div>
+        <div class="sc-label">Project Ideas</div>
+      </div>
+      <div class="sc-title">Build These Projects</div>
+      <ul style="margin-top:8px;display:flex;flex-direction:column;gap:7px;list-style:none;">
+        ${projects.slice(0, 4).map((p, i) =>
+          `<li style="display:flex;gap:8px;font-size:0.82rem;color:var(--text2);">
+             <span style="color:var(--teal);font-weight:700;">${i + 1}.</span>${p}
+           </li>`).join('')}
+      </ul>
+    </div>`;
+
+  // ── Certifications ────────────────────────────────────────
+  const certs = SUGGESTIONS.certs[goal];
+  document.getElementById('sug-certs').innerHTML = `
+    <div class="sc-banner" style="background:linear-gradient(90deg,var(--amber),#d97706);"></div>
+    <div class="sc-body">
+      <div class="sc-icon-row">
+        <div class="sc-icon" style="background:rgba(245,158,11,0.1);">🎓</div>
+        <div class="sc-label">Certifications</div>
+      </div>
+      <div class="sc-title">Earn These Certs</div>
+      <ul style="margin-top:8px;display:flex;flex-direction:column;gap:6px;list-style:none;">
+        ${certs.map(c => `<li style="font-size:0.78rem;color:var(--text2);display:flex;gap:6px;"><span style="color:var(--amber);">★</span>${c}</li>`).join('')}
+      </ul>
+    </div>`;
+
+  // ── Resume readiness ──────────────────────────────────────
+  const resumeStatus = level === 'intermediate'
+    ? { status: '🟡 In Progress', tip: 'Add 2+ portfolio projects and a GitHub link to make your resume job-ready.' }
+    : { status: '🔴 Not Ready Yet', tip: 'Build your first 2 projects, then craft a resume with your skills and project descriptions.' };
+  document.getElementById('sug-resume').innerHTML = `
+    <div class="sc-banner" style="background:linear-gradient(90deg,#f87171,#dc2626);"></div>
+    <div class="sc-body">
+      <div class="sc-icon-row">
+        <div class="sc-icon" style="background:rgba(239,68,68,0.1);">📄</div>
+        <div class="sc-label">Resume Readiness</div>
+      </div>
+      <div class="sc-title">${resumeStatus.status}</div>
+      <div class="sc-desc">${resumeStatus.tip}</div>
+    </div>`;
+
+  // ── Must-know tools ───────────────────────────────────────
+  document.getElementById('sug-tools').innerHTML = `
+    <div class="sc-banner" style="background:linear-gradient(90deg,var(--purple),#7c3aed);"></div>
+    <div class="sc-body">
+      <div class="sc-icon-row">
+        <div class="sc-icon" style="background:rgba(139,92,246,0.1);">⚙️</div>
+        <div class="sc-label">Must-Know Dev Tools</div>
+      </div>
+      <div class="sc-title">Tools to Learn</div>
+      <div style="margin-top:8px;">
+        ${['Git & GitHub (version control)', 'VS Code + Essential Extensions', 'Chrome DevTools (debugging)', 'Postman (API testing)', 'Figma (basic wireframing)']
+          .map(t => `<div style="font-size:0.78rem;color:var(--text2);margin-bottom:5px;display:flex;gap:7px;"><span style="color:var(--purple);">🔧</span>${t}</div>`).join('')}
+      </div>
+    </div>`;
+
+  // ── Motivational quote ────────────────────────────────────
+  const q = SUGGESTIONS.quotes[Math.floor(Math.random() * SUGGESTIONS.quotes.length)];
+  document.getElementById('sug-quote').innerHTML = `
+    <div class="quote-text">"${q.text}"</div>
+    <div class="quote-author">— ${q.author}</div>`;
+}
+
+
+/* ──────────────────────────────────────────────────────────────
+   PRACTICE TEST
+────────────────────────────────────────────────────────────── */
+function startTest() {
+  document.getElementById('test-intro').style.display   = 'none';
+  document.getElementById('test-result').style.display  = 'none';
+  const qEl = document.getElementById('test-questions');
+  qEl.style.display = 'block';
+
+  let html = '<form id="mcq-form">';
+  MCQ_QUESTIONS.forEach((q, qi) => {
+    html += `
+      <div class="question-card">
+        <div class="q-num">Question ${qi + 1} of ${MCQ_QUESTIONS.length} &nbsp;·&nbsp; ${q.topic}</div>
+        <div class="q-text">${q.q}</div>
+        <div class="q-options">
+          ${q.opts.map((opt, oi) => `
+            <input class="q-option" type="radio" name="q${qi}" id="q${qi}o${oi}" value="${oi}"/>
+            <label for="q${qi}o${oi}">${opt}</label>`).join('')}
+        </div>
+      </div>`;
+  });
+  html += `
+    <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:1rem;">
+      <button type="button" class="btn btn-outline" onclick="resetTest()">← Cancel</button>
+      <button type="button" class="btn btn-teal btn-lg" onclick="submitTest()">Submit Test →</button>
+    </div>
+  </form>`;
+  qEl.innerHTML = html;
+}
+
+function submitTest() {
+  let correct = 0;
+  const results = MCQ_QUESTIONS.map((q, qi) => {
+    const sel   = document.querySelector(`input[name="q${qi}"]:checked`);
+    const ans   = sel ? parseInt(sel.value) : -1;
+    const right = ans === q.correct;
+    if (right) correct++;
+    return { qi, ans, right, correctIdx: q.correct };
+  });
+
+  // Show answer highlighting and disable inputs
+  results.forEach(r => {
+    document.getElementById(`q${r.qi}o${r.correctIdx}`)?.classList.add('correct');
+    if (r.ans !== -1 && !r.right) {
+      document.getElementById(`q${r.qi}o${r.ans}`)?.classList.add('wrong');
+    }
+    MCQ_QUESTIONS[r.qi].opts.forEach((_, oi) => {
+      const opt = document.getElementById(`q${r.qi}o${oi}`);
+      if (opt) opt.disabled = true;
+    });
+  });
+
+  // Calculate percentage
+  const pct   = Math.round((correct / MCQ_QUESTIONS.length) * 100);
+  const grade = pct >= 80
+    ? { text: '🏆 Excellent!',  desc: 'Outstanding! You have a strong grasp of the fundamentals.', color: 'var(--teal)' }
+    : pct >= 60
+    ? { text: '👍 Good Job!',   desc: 'Solid understanding. Review the questions you missed and keep practising.', color: 'var(--amber)' }
+    : { text: '💪 Keep Going!', desc: 'A great start! Review missed topics and retake soon.', color: '#f87171' };
+
+  // Save best score
+  const prev = getTestScore();
+  if (!prev || pct > prev.pct) saveTestScore({ score: correct, total: MCQ_QUESTIONS.length, pct, date: new Date().toLocaleDateString() });
+
+  const resEl = document.getElementById('test-result');
+  resEl.style.display = 'block';
+  resEl.innerHTML = `
+    <div class="test-result-card mt-2">
+      <div class="tr-score" style="color:${grade.color};">${correct}/${MCQ_QUESTIONS.length}</div>
+      <div class="tr-label">${pct}% Correct</div>
+      <div class="tr-feedback">${grade.text}</div>
+      <div class="tr-desc">${grade.desc}</div>
+      <div style="display:flex;gap:10px;justify-content:center;margin-top:1.5rem;flex-wrap:wrap;">
+        <button class="btn btn-outline" onclick="window.scrollTo({top:0,behavior:'smooth'})">📋 Review Answers</button>
+        <button class="btn btn-teal"    onclick="resetTest()">↺ Retake Test</button>
+        <button class="btn btn-outline" onclick="showView('view-overview')">🏠 Dashboard</button>
+      </div>
+    </div>`;
+  resEl.scrollIntoView({ behavior: 'smooth' });
+}
+
+function resetTest() {
+  document.getElementById('test-questions').style.display = 'none';
+  document.getElementById('test-result').style.display   = 'none';
+  document.getElementById('test-intro').style.display    = 'block';
+}
+
+
+/* ──────────────────────────────────────────────────────────────
+   ANIMATED SCORE RING
+   Animates the SVG circle stroke and counts up the number.
+   circ = 2π × r = 2π × 65 ≈ 408
+────────────────────────────────────────────────────────────── */
+function animateRing(ringId, pctId, targetScore) {
+  const CIRC  = 408;
+  const ringEl = document.getElementById(ringId);
+  const pctEl  = document.getElementById(pctId);
+  if (!ringEl || !pctEl) return;
+
+  // Set final stroke offset
+  ringEl.style.strokeDashoffset = CIRC - (targetScore / 100) * CIRC;
+
+  // Count-up animation
+  let current = 0;
+  const steps = 60;
+  const inc   = targetScore / steps;
+  let frame   = 0;
+  const timer = setInterval(() => {
+    frame++;
+    current = Math.min(targetScore, current + inc);
+    pctEl.textContent = Math.round(current) + '%';
+    if (frame >= steps) clearInterval(timer);
+  }, 18);
+}
+
+
+/* ──────────────────────────────────────────────────────────────
+   BADGE COUNTER
+   Updates the "Progress" nav badge with remaining task count.
+────────────────────────────────────────────────────────────── */
+function updateBadgeCounts() {
+  const a    = getAssessment();
+  const prog = getProgress();
+  const badge = document.getElementById('badge-tasks');
+  if (!badge) return;
+  if (!a) { badge.textContent = '0'; return; }
+  const allTasks  = buildRoadmap(a.goal, a.missing, a.matched, a.timeline, a.studyTime).flatMap(p => p.tasks);
+  const remaining = allTasks.filter(t => !prog.checked.includes(t)).length;
+  badge.textContent = remaining;
+}
+
+
+/* ──────────────────────────────────────────────────────────────
+   MOBILE SIDEBAR
+────────────────────────────────────────────────────────────── */
+function toggleSidebar() {
+  document.getElementById('main-sidebar').classList.toggle('open');
+  document.getElementById('sidebar-overlay').classList.toggle('show');
+}
+function closeSidebar() {
+  document.getElementById('main-sidebar').classList.remove('open');
+  document.getElementById('sidebar-overlay').classList.remove('show');
+}
+
+
+/* ──────────────────────────────────────────────────────────────
+   APP INITIALISATION
+   On every page load:
+   • If localStorage has a saved assessment → go straight to dashboard
+   • Otherwise → show the entry/assessment form
+────────────────────────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+  const a = getAssessment();
+
+  if (a) {
+    // Resume session — data already exists, skip the form
+    enterDashboard(a);
+  } else {
+    // First time — show the entry / assessment form
+    showPage('page-entry');
+  }
+});
+</script>
+</body>
+</html>
